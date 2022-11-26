@@ -1,0 +1,54 @@
+========= Enum Types =========
+1. Enum là gì?
+
+- Dịch nghĩa: enumerated nghĩa là liệt kê, liệt kê từng cái một (one by one)
+- Enum là 1 nhóm các giá trị hằng số.
+
+2 Typscript sử dụng enum như thế nào?
+2.1 Định nghĩa 1 enum
+- Sử dụng keyword enum, và đặt tên cho enum đó.
+- định nghĩa các giá trị hằng số
+- cú pháp: enum name_enum {const1, const2, ...}
+
+
+3. Dùng enum chỉ ở phía FE
+- Enum chỉ có một tác dụng duy nhất: về mặt cú pháp giúp ta đồng
+bộ hóa cú pháp (thay vì hardcode một chuỗi string).
+
+4. Dùng enum ở phía BE
+
+4.1 Một chút điểm khác biệt enum và const
+- Enum giúp ta viết thêm được method (ở pham vi sử dụng enum ở BE).
+- constant chỉ là constant còn enum nó giống hệt một cái class cho phép
+ta làm nhiều thứ hơn nữa. 
+
+4.2 Một ví dụ sử dụng enum ở phía BE
+
+enum ProjectCategory {
+  SOFTWARE = 'software',  // thực hiện gán giá trị
+  MARKETING = 'marketing',
+  BUSINESS = 'business',
+}
+
+=> dùng những hằng số cho việc thực hiện lưu dưới database.
+ 
+
+TỔNG KẾT: việc chúng ta dụng enum này chỉ có một tác dụng duy nhất thôi
+giúp ta cộng gộp những thằng constant và giúp hạn chế lỗi trong quá trình
+code thay vì code tay.
+- Dùng enum phía FE chỉ để check syntax.
+
+
+
+
+
+
+* Sử dụng enum giống việc khai báo const?
+* Enum giống const?
+* So sánh enum vs const?
+* Điểm khác biệt dễ dàng nhận thấy nhất là của enum so với constant?
+- Ta có thể nhóm từng thằng enum lại.
+* Tại sao ta lại khai báo như này "enum name_enum {const1, const2, ...}"?
+
+
+

@@ -1,0 +1,2 @@
+=== TypeORM cascade option ===
+https://stackoverflow.com/questions/55098023/typeorm-cascade-option-cascade-ondelete-onupdate

@@ -1,0 +1,2 @@
+=== typeorm@0.2.32 ===
+https://www.npmjs.com/package/typeorm/v/0.2.32
