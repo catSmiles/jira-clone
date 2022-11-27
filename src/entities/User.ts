@@ -7,9 +7,11 @@ import {
   BaseEntity,
   OneToMany,
   ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
-import { Comment, Project } from 'entities';
+import { Comment, Project, Issue } from 'entities';
 
 @Entity()
 class User extends BaseEntity {
@@ -44,6 +46,14 @@ class User extends BaseEntity {
     project => project.users,
   )
   project: Project;
+
+  // relation with Issue entity
+  @ManyToMany(
+    () => Issue,
+    issue => issue.users,
+  )
+  @JoinTable()
+  issues: Issue[];
 }
 
 export default User;
