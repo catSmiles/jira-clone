@@ -5,9 +5,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from 'typeorm';
 
 import { IssueType, IssueStatus, IssuePriority } from 'constants/issues';
+import { Project } from 'entities';
 
 @Entity()
 class Issue extends BaseEntity {
@@ -52,6 +54,13 @@ class Issue extends BaseEntity {
 
   @Column('integer')
   reporterId: number;
+
+  // relation with Project entity
+  @ManyToOne(
+    () => Project,
+    project => project.issues,
+  )
+  project: Project;
 }
 
 export default Issue;

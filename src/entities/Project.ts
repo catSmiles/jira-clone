@@ -8,7 +8,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { User } from 'entities';
+import { User, Issue } from 'entities';
 import { ProjectCategory } from 'constants/projects';
 
 @Entity()
@@ -40,6 +40,13 @@ class Project extends BaseEntity {
     user => user.project,
   )
   users: User[];
+
+  // relation with Issue entity
+  @OneToMany(
+    () => Issue,
+    issue => issue.project,
+  )
+  issues: Issue[];
 }
 
 export default Project;
