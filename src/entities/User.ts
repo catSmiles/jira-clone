@@ -6,9 +6,10 @@ import {
   UpdateDateColumn,
   BaseEntity,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
 
-import { Comment } from 'entities';
+import { Comment, Project } from 'entities';
 
 @Entity()
 class User extends BaseEntity {
@@ -36,6 +37,13 @@ class User extends BaseEntity {
     comment => comment.user, // is a function that returns the name of the inverse side of the relation
   )
   comments: Comment[]; // this way we connect them
+
+  // relation with Project entity
+  @ManyToOne(
+    () => Project,
+    project => project.users,
+  )
+  project: Project;
 }
 
 export default User;
