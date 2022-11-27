@@ -1,25 +1,19 @@
 import {
   Entity,
-  Column,
   PrimaryGeneratedColumn,
+  Column,
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
 } from 'typeorm';
 
 @Entity()
-class User extends BaseEntity {
+class Comment extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('varchar')
-  name: string;
-
-  @Column('varchar')
-  email: string;
-
-  @Column('varchar', { length: 2000 })
-  avatarUrl: string;
+  @Column('text')
+  body: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createAt: Date;
@@ -28,4 +22,4 @@ class User extends BaseEntity {
   updateAt: Date;
 }
 
-export default User;
+export default Comment;
