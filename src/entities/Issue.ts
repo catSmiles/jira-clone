@@ -6,10 +6,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 
 import { IssueType, IssueStatus, IssuePriority } from 'constants/issues';
-import { Project } from 'entities';
+import { Project, Comment } from 'entities';
 
 @Entity()
 class Issue extends BaseEntity {
@@ -61,6 +62,13 @@ class Issue extends BaseEntity {
     project => project.issues,
   )
   project: Project;
+
+  // relation with Comment entity
+  @OneToMany(
+    () => Comment,
+    comment => comment.issue,
+  )
+  comments: Comment[];
 }
 
 export default Issue;

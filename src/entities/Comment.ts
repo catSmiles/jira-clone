@@ -8,7 +8,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { User } from 'entities';
+import { User, Issue } from 'entities';
 
 @Entity()
 class Comment extends BaseEntity {
@@ -30,6 +30,13 @@ class Comment extends BaseEntity {
     user => user.comments, // is a function that returns the name of the inverse side of the relation
   )
   user: User; // this way we connect them
+
+  // relation with Issue
+  @ManyToOne(
+    () => Issue,
+    issue => issue.comments,
+  )
+  issue: Issue;
 }
 
 export default Comment;

@@ -20,6 +20,7 @@
 | createAt    | timestamp    |                            |
 | updateAt    | timestamp    |                            |
 | userId      | int(11)      | FOREIGN KEY                |
+| issueId     | int(11)      | FOREIGN KEY                |
 +-------------+--------------+----------------------------+
 
 +-------------+--------------+----------------------------+
@@ -51,5 +52,6 @@
 | createAt              | timestamp    |                            |
 | updateAt              | timestamp    |                            |
 | reporterId            | int(11)      |                            |
+| projectId             | int(11)      | FOREIGN KEY                |
 +-----------------------+--------------+----------------------------+
 
