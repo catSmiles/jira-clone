@@ -5,7 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
+  ManyToOne,
 } from 'typeorm';
+
+import { User } from 'entities';
 
 @Entity()
 class Comment extends BaseEntity {
@@ -20,6 +23,13 @@ class Comment extends BaseEntity {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updateAt: Date;
+
+  // relation with User entity
+  @ManyToOne(
+    () => User, // is a function that returns the class of the entity with which we want to make our relationship
+    user => user.comments, // is a function that returns the name of the inverse side of the relation
+  )
+  user: User; // this way we connect them
 }
 
 export default Comment;
