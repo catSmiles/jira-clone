@@ -1,2 +1,10 @@
 === TypeORM cascade option ===
 https://stackoverflow.com/questions/55098023/typeorm-cascade-option-cascade-ondelete-onupdate
+
+=== TypeORM column type ===
+Issue: What is the maximum length of a URL in different browsers?
+Link: https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
+
+Issue: char vs varchar
+Link: https://www.geeksforgeeks.org/char-vs-varchar-in-sql
+

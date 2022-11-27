@@ -1,5 +1,7 @@
 import { createConnection, Connection } from 'typeorm';
 
+import { User } from 'entities';
+
 const createDatabaseConnection = (): Promise<Connection> =>
   createConnection({
     type: 'postgres',
@@ -9,7 +11,7 @@ const createDatabaseConnection = (): Promise<Connection> =>
     password: 'PostgreSQL8143',
     database: 'jira_development',
     synchronize: true,
-    entities: [],
+    entities: [User],
   });
 
 export default createDatabaseConnection;
