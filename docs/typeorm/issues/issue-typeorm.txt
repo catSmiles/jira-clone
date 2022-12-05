@@ -8,3 +8,9 @@ Link: https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a
 Issue: char vs varchar
 Link: https://www.geeksforgeeks.org/char-vs-varchar-in-sql
 
+Issue: What does "owner side" in a relations mean or why we need to use @JoinColumn and @JoinTable?
+Link: https://orkhan.gitbook.io/typeorm/docs/faq#what-does-owner-side-in-a-relations-mean-or-why-we-need-to-use-joincolumn-and-jointable
+
+Issue: RelationId on a ManyToMany always eager loads ids #3860
+Link: https://github.com/typeorm/typeorm/issues/3860
+
