@@ -21,15 +21,18 @@ const initializeExpress = (): void => {
 
   app.get(
     '/middleware',
-    (req, res, next) => {
-      if (['veVip', 'veThuong'].includes(req.query.ve)) {
-        next();
+    // (req, res, next) => { // this middleware function
+    (req, res) => {
+      if (['vevip', 'vethuong'].includes(req.query.ve.toLowerCase())) {
+        req.face = 'Gach gach gach!!!';
+        // next();  // this function invokes the next middleware function in the app
       }
       res.status(403).json({ message: 'Access denied' });
     },
-    (_req, res) => {
-      res.json({ message: 'Successfully' });
+    (req, res) => {
+      res.json({ message: 'Successfully', face: req.face });
     },
+    // How to use? - http://localhost:3000/middleware?ve=vethuong
   );
 
   // start express server
@@ -38,6 +41,7 @@ const initializeExpress = (): void => {
   });
 };
 
+// eslint-disable-next-line @typescript-eslint/require-await
 const initializeApp = async (): Promise<void> => {
   // await establishDatabaseConnection();
   initializeExpress();
