@@ -19,10 +19,15 @@ const initializeExpress = (): void => {
   const app = express();
   app.use(express.json());
 
+  app.post('/title', (_req, res) => {
+    res.json({ name: 'Test User' });
+    // test one Thunder Client
+  });
+
   app.get(
     '/middleware',
     (req, res, next) => {
-      if (['vevip', 'vethuong'].includes(req.query.ve?.toLowerCase())) {
+      if (['vevip', 'vethuong'].includes(req.query.ve)) {
         req.face = 'Gach gach gach!!!';
         next();
       }
@@ -31,7 +36,6 @@ const initializeExpress = (): void => {
     (req, res) => {
       res.json({ message: 'Successfully', face: req.face });
     },
-    // How to use this? - http://localhost:3000/middleware or url +  path /middleware?ve=vethuong
   );
 
   // start express server
