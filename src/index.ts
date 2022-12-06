@@ -21,18 +21,17 @@ const initializeExpress = (): void => {
 
   app.get(
     '/middleware',
-    // (req, res, next) => { // this middleware function
-    (req, res) => {
-      if (['vevip', 'vethuong'].includes(req.query.ve.toLowerCase())) {
+    (req, res, next) => {
+      if (['vevip', 'vethuong'].includes(req.query.ve?.toLowerCase())) {
         req.face = 'Gach gach gach!!!';
-        // next();  // this function invokes the next middleware function in the app
+        next();
       }
       res.status(403).json({ message: 'Access denied' });
     },
     (req, res) => {
       res.json({ message: 'Successfully', face: req.face });
     },
-    // How to use? - http://localhost:3000/middleware?ve=vethuong
+    // How to use this? - http://localhost:3000/middleware or url +  path /middleware?ve=vethuong
   );
 
   // start express server
