@@ -4,6 +4,8 @@ import 'module-alias/register';
 import createDatabaseConnection from 'database/createConnection';
 import { attachPublicRoutes } from 'routes';
 
+import { authenticateUser } from 'middleware/authentication';
+
 // establish database connection
 const establishDatabaseConnection = async (): Promise<void> => {
   try {
@@ -21,6 +23,8 @@ const initializeExpress = (): void => {
   app.use(express.json()); // use middleware
 
   attachPublicRoutes(app);
+
+  app.get('/', authenticateUser);
 
   // start express server
   app.listen(3000, () => {
