@@ -4,11 +4,11 @@ import { isPlainObject } from 'lodash';
 import { InvalidTokenError } from 'errors/customErrors';
 
 export const signToken = (payload: object): string =>
-  jwt.sign(payload, 'development123', { expiresIn: '30 days' });
+  jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30 days' });
 
 export const verifyToken = (token: string): { [key: string]: any } => {
   try {
-    const payload = jwt.verify(token, 'development123');
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
     if (isPlainObject(payload)) {
       return payload as { [key: string]: any };
     }

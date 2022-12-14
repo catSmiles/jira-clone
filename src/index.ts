@@ -1,5 +1,6 @@
 import express from 'express';
 import 'module-alias/register';
+import 'dotenv/config';
 
 import { addRespondToResponse } from 'middleware/response';
 import createDatabaseConnection from 'database/createConnection';
@@ -33,8 +34,8 @@ const initializeExpress = (): void => {
   app.get('/', authenticateUser);
 
   // start express server
-  app.listen(3000, () => {
-    console.log('server running on port 3000');
+  app.listen(process.env.PORT, () => {
+    console.log(`server running on port ${process.env.PORT}`);
   });
 };
 

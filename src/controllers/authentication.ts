@@ -7,7 +7,4 @@ export const createGuestAccount = catchErrors(async (_req, res) => {
   res.respond({
     authToken: signToken({ sub: user.id }),
   });
-  // res.status(200).send({
-  //   authToken: signToken({ sub: user.id }), // subject
-  // });
 });
