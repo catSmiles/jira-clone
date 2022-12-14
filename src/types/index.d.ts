@@ -1,6 +1,8 @@
 declare namespace Express {
   export interface Request {
     currentUser: import('entities').User;
-    face: string;
+  }
+  export interface Response {
+    respond: (data: any) => void;
   }
 }

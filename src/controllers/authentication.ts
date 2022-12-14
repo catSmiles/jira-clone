@@ -4,7 +4,10 @@ import { catchErrors } from 'errors/asyncCatch';
 
 export const createGuestAccount = catchErrors(async (_req, res) => {
   const user = await createAccount();
-  res.status(200).send({
-    authToken: signToken({ sub: user.id }), // subject
+  res.respond({
+    authToken: signToken({ sub: user.id }),
   });
+  // res.status(200).send({
+  //   authToken: signToken({ sub: user.id }), // subject
+  // });
 });

@@ -1,6 +1,7 @@
 import express from 'express';
 import 'module-alias/register';
 
+import { addRespondToResponse } from 'middleware/response';
 import createDatabaseConnection from 'database/createConnection';
 import { attachPublicRoutes } from 'routes';
 
@@ -23,6 +24,8 @@ const initializeExpress = (): void => {
 
   // use middleware
   app.use(express.json());
+
+  app.use(addRespondToResponse);
 
   // using Thunder Client run: http://localhost:3000/authentication/guest - with post method (To create data)
   attachPublicRoutes(app);
