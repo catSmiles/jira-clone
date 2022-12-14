@@ -20,8 +20,11 @@ const establishDatabaseConnection = async (): Promise<void> => {
 const initializeExpress = (): void => {
   // create and setup express app
   const app = express();
-  app.use(express.json()); // use middleware
 
+  // use middleware
+  app.use(express.json());
+
+  // using Thunder Client run: http://localhost:3000/authentication/guest - with post method (To create data)
   attachPublicRoutes(app);
 
   app.get('/', authenticateUser);
