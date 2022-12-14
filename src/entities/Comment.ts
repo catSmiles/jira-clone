@@ -31,12 +31,18 @@ class Comment extends BaseEntity {
   )
   user: User; // this way we connect them
 
+  @Column('integer')
+  userId: number;
+
   // relation with Issue
   @ManyToOne(
     () => Issue,
     issue => issue.comments,
   )
   issue: Issue;
+
+  @Column('integer')
+  issueId: number;
 }
 
 export default Comment;

@@ -1,4 +1,4 @@
-import { User, Project, Issue } from 'entities';
+import { User, Project, Issue, Comment } from 'entities';
 import { ProjectCategory } from 'constants/projects';
 import { IssueType, IssueStatus, IssuePriority } from 'constants/issues';
 
@@ -70,11 +70,27 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
   return Promise.all(issues);
 };
 
+const seedComments = (issues: Issue[], users: User[]): Promise<Comment[]> => {
+  const comments = [
+    createEntity(Comment, {
+      body: 'An old silent pond...\nA frog jumps into the pond,\nsplash! Silence again.',
+      issueId: issues[0].id,
+      userId: users[2].id,
+    }),
+    createEntity(Comment, {
+      body: 'Autumn moonlight-\na worm digs silently\ninto the chestnut.',
+      issueId: issues[1].id,
+      userId: users[2].id,
+    }),
+  ];
+  return Promise.all(comments);
+};
+
 const createGuestAccount = async (): Promise<User> => {
   const users = await seedUsers(); // insert users into db - postgres
   const project = await seedProject(users);
-  await seedIssues(project);
-
+  const issues = await seedIssues(project);
+  await seedComments(issues, project.users);
   return users[1];
 };
 
