@@ -64,6 +64,9 @@ class Issue extends BaseEntity {
   )
   project: Project;
 
+  @Column('integer')
+  projectId: number;
+
   // relation with Comment entity
   @OneToMany(
     () => Comment,
