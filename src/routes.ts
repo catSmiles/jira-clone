@@ -10,6 +10,7 @@ export const attachPublicRoutes = (app: any): void => {
 export const attachPrivateRoutes = (app: any): void => {
   // comments
   app.post('/comments', comments.create);
+  app.delete('/comments:commentId', comments.remove);
 
   // issues
   app.post('/issues', issues.create);
