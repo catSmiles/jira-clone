@@ -83,5 +83,18 @@
 
 
 
+======================================================= define list custom errors =======================================================
+
++-------------+-------------------+----------------------------+-------------+----------------------------------------------------------+
+|             | define error      |     name errors            |    status   |                       message                            |
++-------------+-------------------+----------------------------+-------------+----------------------------------------------------------+
+|     1       | invalid token     | InvalidTokenError          |     401     |     Unauthorized - Authentication token is invalid       |
+|     2       | bad user input    | BadUserInputError          |     400     |     Bad Request  - There were validation errors          |
+|     3       | route not found   | RouteNotFoundError         |     404     |     Not Found    - routename not found                   |
+|     4       | entity not found  | EntityNotFoundError        |     404     |     Not found    - entityname not found                  |
++-------------+-------------------+----------------------------+-------------+----------------------------------------------------------+
+
+
+
 
 
