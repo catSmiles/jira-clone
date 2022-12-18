@@ -2,7 +2,7 @@ import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
 import { User, Project, Issue, Comment } from 'entities';
 
 import { generateErrors } from 'utils/validation';
-import { BadUserInputError } from 'errors/customErrors';
+import { BadUserInputError, EntityNotFound } from 'errors/customErrors';
 
 type EntityInstance = User | Project | Issue | Comment;
 type EntityConstructor = typeof User | typeof Project | typeof Issue | typeof Comment;
@@ -50,5 +50,36 @@ export const deleteEntity = async <T extends EntityConstructor>(
 ): Promise<InstanceType<T>> => {
   const instance = await Constructor.findOne(id, option);
   await instance.remove();
+  return instance;
+};
+
+// update entity
+// imagine update entity
+// input: id, entity, input (userInput)
+// logic: find enity. if true update enity, otherwise through error
+// output: update entity, otherwise through error
+export const updateEntity = async <T extends EntityConstructor>(
+  Constructor: T,
+  id: number | string,
+  input: Partial<InstanceType<T>>,
+): Promise<InstanceType<T>> => {
+  const instance = await findEntityOrThrow(Constructor, id);
+  Object.assign(instance, input);
+  return validateAndSaveEntity(instance);
+};
+
+// imagine findEntityOrThrow
+// input: Constructor, id
+// logic if find instance is true return instance, otherwise throw error
+// output: instance or throw error
+const findEntityOrThrow = async <T extends EntityConstructor>(
+  Constructor: T,
+  id: number | string,
+  options?: FindOneOptions,
+): Promise<InstanceType<T>> => {
+  const instance = await Constructor.findOne(id, options);
+  if (!instance) {
+    throw new EntityNotFound(Constructor.name);
+  }
   return instance;
 };
