@@ -9,9 +9,15 @@ import {
 } from 'typeorm';
 
 import { User, Issue } from 'entities';
+import is from 'utils/validation';
 
 @Entity()
 class Comment extends BaseEntity {
+  // imagine way to using validation?
+  static validations = {
+    body: [is.required(), is.maxLength(5000)],
+  };
+
   @PrimaryGeneratedColumn()
   id: number;
 

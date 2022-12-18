@@ -1,0 +1,2 @@
+https://javascript.info/custom-errors
+https://futurestud.io/tutorials/node-js-create-your-custom-error
