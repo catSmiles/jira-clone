@@ -1,6 +1,7 @@
 import { createGuestAccount } from 'controllers/authentication';
 import * as comments from 'controllers/comments';
 import * as issues from 'controllers/issues';
+import * as users from 'controllers/users';
 
 export const attachPublicRoutes = (app: any): void => {
   app.post('/authentication/guest', createGuestAccount);
@@ -19,4 +20,6 @@ export const attachPrivateRoutes = (app: any): void => {
   // project
 
   // currentUser
+  // imagine way to using
+  app.get('/currentUser', users.currentUser);
 };
