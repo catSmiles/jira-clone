@@ -11,8 +11,17 @@ import {
 import { User, Issue } from 'entities';
 import { ProjectCategory } from 'constants/projects';
 
+import is from 'utils/validation';
+
 @Entity()
 class Project extends BaseEntity {
+  static validations = {
+    // imagine properties was validate: name, url, category
+    name: [is.required(), is.maxLength(100)],
+    url: [is.url()],
+    category: [is.required(), is.oneOf(Object.values(ProjectCategory))],
+  };
+
   @PrimaryGeneratedColumn()
   id: number;
 

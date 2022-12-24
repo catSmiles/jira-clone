@@ -22,6 +22,23 @@ const is = {
   maxLength: (max: number) => (value: Value): ErrorMessage =>
     !!value && value.length > max && `Must be at least ${max} charaters`,
   // why using "!!value"? -> to convert boolean. Exp: (!!0 && 'message error') and (0 && 'message error') Because ErrorMessage give value (false | string)
+
+  // imagine way define rule url
+  // input: value
+  // logic: using "RegExp.prototype.test()"
+  // output: false or  error message (string)
+  url: () => (value: Value): ErrorMessage =>
+    !!value &&
+    // eslint-disable-next-line no-useless-escape
+    /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(value) &&
+    'Must be a valid URL',
+
+  // imagine way define oneOf
+  // input
+  // logic
+  // output
+  oneOf: (arr: any[]) => (value: Value): ErrorMessage =>
+    !!value && !arr.includes(value) && `Must be one of: [${arr.join(', ')}]`,
 };
 
 const isNilOrEmptyString = (value: Value): boolean => {
