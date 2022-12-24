@@ -9,6 +9,7 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  RelationId,
 } from 'typeorm';
 
 import { Comment, Project, Issue } from 'entities';
@@ -54,6 +55,9 @@ class User extends BaseEntity {
   )
   @JoinTable()
   issues: Issue[];
+
+  @RelationId((user: User) => user.project) // Loads id (or ids) of specific relations into properties. For example, if you have a many-to-one Project in your User entity, you can have a new project id by marking a new property with @RelationId.
+  projectId: number;
 }
 
 export default User;
