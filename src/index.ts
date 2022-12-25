@@ -4,9 +4,10 @@ import 'dotenv/config';
 
 import { addRespondToResponse } from 'middleware/response';
 import createDatabaseConnection from 'database/createConnection';
-import { attachPublicRoutes } from 'routes';
+import { attachPublicRoutes, attachPrivateRoutes } from 'routes';
 
 import { authenticateUser } from 'middleware/authentication';
+import { RouteNotFoundError } from 'errors/customErrors';
 
 // establish database connection
 const establishDatabaseConnection = async (): Promise<void> => {
@@ -32,6 +33,11 @@ const initializeExpress = (): void => {
   attachPublicRoutes(app);
 
   app.get('/', authenticateUser);
+
+  attachPrivateRoutes(app);
+
+  // handle error route not found!
+  app.use((req, _res, next) => next(new RouteNotFoundError(req.originalUrl)));
 
   // start express server
   app.listen(process.env.PORT, () => {
