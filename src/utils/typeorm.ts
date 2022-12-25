@@ -72,7 +72,7 @@ export const updateEntity = async <T extends EntityConstructor>(
 // input: Constructor, id
 // logic if find instance is true return instance, otherwise throw error
 // output: instance or throw error
-const findEntityOrThrow = async <T extends EntityConstructor>(
+export const findEntityOrThrow = async <T extends EntityConstructor>(
   Constructor: T,
   id: number | string,
   options?: FindOneOptions,

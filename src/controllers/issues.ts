@@ -2,7 +2,7 @@ import { Issue } from 'entities';
 
 import { catchErrors } from 'errors/asyncCatch';
 
-import { createEntity, updateEntity, deleteEntity } from 'utils/typeorm';
+import { createEntity, updateEntity, deleteEntity, findEntityOrThrow } from 'utils/typeorm';
 
 export const create = catchErrors(async (req, res) => {
   const listPosition = await caculatePosition(req.body);
@@ -88,5 +88,19 @@ export const getProjectIssues = catchErrors(async (req, res) => {
     .where(whereSQL, { projectId, searchTerm: `%${searchTerm}%` })
     .getMany();
 
+  res.respond({ issues });
+});
+
+// getIssueWithUsersAndComments
+// imagine getIssueWithUsersAndComments working?
+// input
+// logic
+// output
+
+export const getIssueWithUsersAndComments = catchErrors(async (req, res) => {
+  const issues = await findEntityOrThrow(Issue, req.params.issueId, {
+    // https://stackoverflow.com/questions/59031198/typeorm-how-to-get-relations-of-relations
+    relations: ['users', 'comments', 'comments.user'],
+  });
   res.respond({ issues });
 });
