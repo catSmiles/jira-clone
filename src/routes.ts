@@ -24,6 +24,7 @@ export const attachPrivateRoutes = (app: any): void => {
 
   // project
   app.put('/project', projects.update);
+  app.get('/project', projects.getProjectWithIssuesAndUsers);
 
   // currentUser
   // imagine way to using

@@ -1,6 +1,7 @@
 import { Project } from 'entities';
 import { catchErrors } from 'errors/asyncCatch';
-import { updateEntity } from 'utils/typeorm';
+import { updateEntity, findEntityOrThrow } from 'utils/typeorm';
+import { issuePartial } from 'serializers/issues';
 
 // Imagine way to update Project enity?
 // input: Project has change
@@ -14,4 +15,18 @@ import { updateEntity } from 'utils/typeorm';
 export const update = catchErrors(async (req, res) => {
   const project = await updateEntity(Project, req.currentUser.projectId, req.body);
   res.respond({ project });
+});
+
+// getProjectWithIssuesAndUsers
+// Imagine getProjectWithIssuesAndUsers
+export const getProjectWithIssuesAndUsers = catchErrors(async (req, res) => {
+  const project = await findEntityOrThrow(Project, req.currentUser.projectId, {
+    relations: ['issues', 'users'],
+  });
+  res.respond({
+    project: {
+      ...project,
+      issues: project.issues.map(issuePartial),
+    },
+  });
 });
