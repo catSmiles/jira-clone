@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 type ErrorData = { [key: string]: any };
 
-class CustomError extends Error {
+export class CustomError extends Error {
   constructor(
     public message: string,
     public code: string,

@@ -8,6 +8,7 @@ import { attachPublicRoutes, attachPrivateRoutes } from 'routes';
 
 import { authenticateUser } from 'middleware/authentication';
 import { RouteNotFoundError } from 'errors/customErrors';
+import { handleError } from 'middleware/errors';
 
 // establish database connection
 const establishDatabaseConnection = async (): Promise<void> => {
@@ -38,6 +39,9 @@ const initializeExpress = (): void => {
 
   // handle error route not found!
   app.use((req, _res, next) => next(new RouteNotFoundError(req.originalUrl)));
+
+  // handle error
+  app.use(handleError);
 
   // start express server
   app.listen(process.env.PORT, () => {
