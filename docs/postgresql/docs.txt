@@ -1,0 +1,14 @@
+------- PostgreSQL Online ---------
+https://extendsclass.com/postgresql-online.html#
+
+------- SQL query -----------
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-where/
+
+------ PostgreSQL – ILIKE operator -------
+https://techmaster.vn/posts/34742/postgresql-tim-kiem-voi-like-va-ilike
+https://www.geeksforgeeks.org/postgresql-ilike-operator/
+
+------ What is search term - NOT in postgresql - It's simple words --------
+https://www.wordstream.com/search-term
+
+
