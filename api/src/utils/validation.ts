@@ -30,7 +30,7 @@ const is = {
   url: () => (value: Value): ErrorMessage =>
     !!value &&
     // eslint-disable-next-line no-useless-escape
-    /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(value) &&
+    !/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(value) &&
     'Must be a valid URL',
 
   // imagine way define oneOf

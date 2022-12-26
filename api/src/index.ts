@@ -30,7 +30,7 @@ const initializeExpress = (): void => {
 
   app.use(addRespondToResponse);
 
-  // using Thunder Client run: http://localhost:3000/authentication/guest - with post method (To create data)
+  // using Thunder Client run: http://localhost:3030/authentication/guest - with post method (To create data)
   attachPublicRoutes(app);
 
   app.get('/', authenticateUser);
