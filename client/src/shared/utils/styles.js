@@ -47,3 +47,9 @@ export const mixin = {
     }
   `,
 };
+
+export const sizes = {
+  appNavBarLeftWidth: 64,
+  secondarySideBarWidth: 230,
+  minWiewportWidth: 1000,
+};
