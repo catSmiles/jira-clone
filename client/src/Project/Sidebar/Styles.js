@@ -1,4 +1,4 @@
-import { sizes, color, zIndexValues, mixin } from 'shared/utils/styles';
+import { sizes, color, zIndexValues, mixin, font } from 'shared/utils/styles';
 import styled from 'styled-components';
 
 export const Sidebar = styled.div`
@@ -21,4 +21,24 @@ export const Sidebar = styled.div`
   @media (max-width: 999px) {
     display: none;
   }
+`;
+
+export const ProjectInfo = styled.div`
+  display: flex;
+  padding: 24px 4px;
+`;
+
+export const ProjectTexts = styled.div`
+  padding: 3px 0 0 10px;
+`;
+
+export const ProjectName = styled.div`
+  ${font.size(15)};
+  color: ${color.textDark};
+  ${font.medium};
+`;
+
+export const ProjectCategory = styled.div`
+  ${font.size(13)};
+  color: ${color.textMedium};
 `;
