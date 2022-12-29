@@ -2,10 +2,12 @@ import { css } from 'styled-components'; // A helper function to generate CSS fr
 
 export const color = {
   textDarkest: '#172b4d',
-  textDark: '#42526E',
-  textMedium: '#5E6C84',
+  textDark: '#42526e',
+  textMedium: '#5e6c84',
   textLight: '#8993a4',
   textLink: '#0052cc',
+
+  backgroundDarkPrimary: '#0747a6',
 };
 
 export const font = {
@@ -35,6 +37,7 @@ export const mixin = {
       opacity: 1 !important;
     }
   `,
+
   link: (colorValue = color.textLink) => css`
     cursor: pointer;
     color: ${colorValue};
@@ -46,10 +49,19 @@ export const mixin = {
       text-decoration: underline;
     }
   `,
+
+  clickable: css`
+    cursor: pointer;
+    user-select: none;
+  `,
 };
 
 export const sizes = {
   appNavBarLeftWidth: 64,
   secondarySideBarWidth: 230,
   minWiewportWidth: 1000,
+};
+
+export const zIndexValues = {
+  navLeft: 99,
 };
