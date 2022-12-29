@@ -8,6 +8,7 @@ function Project() {
     <ProjectPage>
       <NavbarLeft />
       <Sidebar />
+      <h2>Board</h2>
     </ProjectPage>
   );
 }
