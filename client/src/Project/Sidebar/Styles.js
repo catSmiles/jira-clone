@@ -42,3 +42,56 @@ export const ProjectCategory = styled.div`
   ${font.size(13)};
   color: ${color.textMedium};
 `;
+
+export const LinkItem = styled.a`
+  position: relative;
+  display: flex;
+  padding: 8px 12px;
+  ${mixin.clickable};
+  border-radius: 3px;
+  ${props =>
+    !props.to ? `cursor: not-allowed;` : `&:hover {background-color: ${color.backgroundLight};}`}
+  i {
+    margin-right: 15px;
+    ${font.size(20)}
+  }
+  &.active {
+    color: ${color.primary};
+    background-color: ${color.backgroundLight};
+    i {
+      color: ${color.primary};
+    }
+  }
+`;
+
+export const LinkText = styled.div`
+  padding-top: 2px;
+  ${font.size(14.7)};
+`;
+
+export const Devider = styled.div`
+  margin-top: 17px;
+  padding-top: 18px;
+  border-top: 1px solid ${color.borderLight};
+`;
+
+export const NotImplemented = styled.div`
+  position: absolute;
+  left: 40px;
+  top: 7px;
+  width: 140px;
+  padding: 5px 0 5px 8px;
+
+  background-color: ${color.backgroundMedium};
+  color: ${color.textDark};
+  border-radius: 3px;
+  opacity: 0;
+
+  text-transform: uppercase;
+  ${font.size(11.5)};
+  ${font.bold};
+
+  ${LinkItem}:hover & {
+    opacity: 1;
+  }
+`;

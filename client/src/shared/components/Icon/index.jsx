@@ -7,6 +7,13 @@ const fontIconCodes = {
   [`search`]: '\\e907',
   [`plus`]: '\\e906',
   [`help`]: '\\e905',
+  [`board`]: '\\e904',
+  [`settings`]: '\\e909',
+  [`shipping`]: '\\e91c',
+  [`issues`]: '\\e908',
+  [`page`]: '\\e919',
+  [`reports`]: '\\e91b',
+  [`component`]: '\\e91a',
 };
 
 const propTypes = {
