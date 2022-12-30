@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { Container, Divider } from './Styles';
 
@@ -8,10 +8,10 @@ function Breadcrumbs() {
   return (
     <Container>
       {arrText.map((text, index) => (
-        <>
+        <Fragment key={index}>
           {index !== 0 && <Divider>/</Divider>}
           {text}
-        </>
+        </Fragment>
       ))}
     </Container>
   );

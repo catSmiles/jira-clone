@@ -10,10 +10,10 @@ import {
   LinkItem,
   LinkText,
   Devider,
-  NotImplemented
+  NotImplemented,
 } from './Styles';
 import Icon from 'shared/components/Icon';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 
 function ProjectSidebar() {
   return (
@@ -43,7 +43,8 @@ function ProjectSidebar() {
 const renderLinkItem = (text, iconType, path) => {
   const isImplemented = !!path;
 
-  const LinkItemProps = isImplemented ? { as: NavLink, expect: true, to: path } : { as: 'div' };
+  // const LinkItemProps = isImplemented ? { as: NavLink, expect: true, to: path } : { as: 'div' };
+  const LinkItemProps = isImplemented ? { as: 'a' } : { as: 'div' };
 
   return (
     <LinkItem {...LinkItemProps}>

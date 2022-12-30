@@ -83,6 +83,14 @@ export const mixin = {
       background: ${background};
     }
   `,
+
+  backgroundImage: imageURL => css`
+    background-image: url("${imageURL}");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-color: ${color.backgroundLight};
+  `,
 };
 
 export const sizes = {
