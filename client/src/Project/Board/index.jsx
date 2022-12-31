@@ -10,6 +10,8 @@ function Board() {
       <Breadcrumbs />
       <Header />
       <Avatar />
+      <Avatar />
+      <Avatar />
     </>
   );
 }

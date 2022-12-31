@@ -12,8 +12,9 @@ const propTypes = {
 
 const defaultProps = {
   className: undefined,
-  avatarUrl: 'https://i.ibb.co/7JM1P2r/picke-rick.jpg',
-  name: '',
+  // avatarUrl: 'https://i.ibb.co/7JM1P2r/picke-rick.jpg',
+  avatarUrl: null,
+  name: 'Trung',
   size: 32,
 };
 
@@ -24,8 +25,30 @@ function Avatar({ className, avatarUrl, name, size, ...otherProps }) {
     'data-testid': name ? `avatar:${name}` : 'avatar',
     ...otherProps,
   };
-  return <Image avatarUrl={avatarUrl} {...sharedProps} />;
+
+  if (avatarUrl) {
+    return <Image avatarUrl={avatarUrl} {...sharedProps} />;
+  }
+
+  return (
+    <Letter color={getColorFromName(name)} {...sharedProps}>
+      <span>{name.charAt(0)}</span>
+    </Letter>
+  );
 }
+
+const colors = [
+  '#da7657',
+  '#6ada57',
+  '#5784da',
+  '#aa57da',
+  '#da5757',
+  '#da5792',
+  '#57daca',
+  '#57a5da',
+];
+
+const getColorFromName = name => colors[name.toLocaleLowerCase().charCodeAt(0) % colors.length];
 
 Avatar.propTypes = propTypes;
 Avatar.defaultProps = defaultProps;
