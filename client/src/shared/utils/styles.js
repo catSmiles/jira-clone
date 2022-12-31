@@ -1,7 +1,8 @@
 import { css } from 'styled-components'; // A helper function to generate CSS from a template literal with interpolations
 
 export const color = {
-  primary: '#0052cc',
+  primary: '#0052cc', // blue
+  danger: '#e13c3c', // red
 
   textDarkest: '#172b4d',
   textDark: '#42526e',
@@ -16,6 +17,7 @@ export const color = {
 
   borderLightest: '#dfe1e6',
   borderLight: '#c1c7d0',
+  borderInputFocus: '#4c9aff',
 };
 
 export const font = {
