@@ -16,7 +16,6 @@ const defaultProps = {
 };
 
 function Input({ className, icon, ...inputProps }) {
-  console.log({ ...inputProps });
   return (
     <StyledInput className={className}>
       {icon && <StyledIcon type={icon} size={15} />}

@@ -1,8 +1,10 @@
+import Color from 'color';
 import { css } from 'styled-components'; // A helper function to generate CSS from a template literal with interpolations
 
 export const color = {
   primary: '#0052cc', // blue
   danger: '#e13c3c', // red
+  secondary: '#f4f5f7', // light grey
 
   textDarkest: '#172b4d',
   textDark: '#42526e',
@@ -14,6 +16,7 @@ export const color = {
   backgroundLightest: '#f4f5f7',
   backgroundMedium: '#dfe1e6',
   backgroundLight: '#ebecf0',
+  backgroundLightPrimary: '#d2e5fe',
 
   borderLightest: '#dfe1e6',
   borderLight: '#c1c7d0',
@@ -29,6 +32,15 @@ export const font = {
 };
 
 export const mixin = {
+  darken: (colorValue, amount) =>
+    Color(colorValue)
+      .darken(amount)
+      .string(),
+  lighten: (colorValue, amount) =>
+    Color(colorValue)
+      .lighten(amount)
+      .string(),
+
   placeholderColor: colorValue => css`
     ::-webkit-input-placeholder {
       color: ${colorValue} !important;

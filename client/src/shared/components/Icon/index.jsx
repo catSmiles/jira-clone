@@ -14,6 +14,7 @@ const fontIconCodes = {
   [`page`]: '\\e919',
   [`reports`]: '\\e91b',
   [`component`]: '\\e91a',
+  [`github`]: '\\e915',
 };
 
 const propTypes = {
