@@ -49,4 +49,5 @@ export const StyledIcon = styled(Icon)`
   transform: translateY(-50%);
   pointer-events: none;
   color: ${color.textMedium};
+  // top: 8px;
 `;

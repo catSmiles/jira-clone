@@ -36,6 +36,11 @@ const colored = css`
       background: ${props => mixin.darken(color[props.variant], 0.1)};
     }
   }
+  ${props =>
+    props.isActive &&
+    css`
+      background-color: ${mixin.darken(color[props.variant], 0.1)} !important;
+    `}
 `;
 
 const secondaryAndEmptyShared = css`
@@ -50,6 +55,12 @@ const secondaryAndEmptyShared = css`
       background: ${color.backgroundLightPrimary};
     }
   }
+  ${props =>
+    props.isActive &&
+    css`
+      color: ${color.primary};
+      background-color: ${color.backgroundLightPrimary} !important;
+    `}
 `;
 
 const buttonVariants = {
