@@ -15,6 +15,11 @@ const fontIconCodes = {
   [`reports`]: '\\e91b',
   [`component`]: '\\e91a',
   [`github`]: '\\e915',
+  [`bug`]: '\\e90f',
+  [`task`]: '\\e910',
+  [`story`]: '\\e911',
+  [`arrow-down`]: '\\e90a',
+  [`arrow-up`]: '\\e90b',
 };
 
 const propTypes = {

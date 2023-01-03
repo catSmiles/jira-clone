@@ -1,6 +1,8 @@
 import Color from 'color';
 import { css } from 'styled-components'; // A helper function to generate CSS from a template literal with interpolations
 
+import { IssueType, IssuePriority } from 'shared/constants/issues';
+
 export const color = {
   primary: '#0052cc', // blue
   danger: '#e13c3c', // red
@@ -105,6 +107,12 @@ export const mixin = {
     background-position: 50% 50%;
     background-color: ${color.backgroundLight};
   `,
+
+  truncateText: css`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  `,
 };
 
 export const sizes = {
@@ -115,4 +123,19 @@ export const sizes = {
 
 export const zIndexValues = {
   navLeft: 99,
+};
+
+// ISSUE
+export const issueTypeColors = {
+  [IssueType.TASK]: '#4fade6', // blue
+  [IssueType.BUG]: '#e44d42', // red
+  [IssueType.STORY]: '#65ba43', // green
+};
+
+export const issuePriorityColors = {
+  [IssuePriority.HIGHEST]: '#cd1317', // red
+  [IssuePriority.HIGH]: '#e9494a', // orange
+  [IssuePriority.MEDIUM]: '#e97f33', // orange
+  [IssuePriority.LOW]: '#2d8738', // green
+  [IssuePriority.LOWEST]: '#47a55a', // green
 };

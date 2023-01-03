@@ -8,6 +8,7 @@ import Button from 'shared/components/Button';
 
 import Icon from 'shared/components/Icon';
 import Filters from './Filters';
+import Lists from './Lists';
 
 function Board() {
   return (
@@ -15,6 +16,7 @@ function Board() {
       <Breadcrumbs />
       <Header />
       <Filters />
+      <Lists />
     </>
   );
 }
