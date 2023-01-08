@@ -18,6 +18,30 @@ import { StyledSelect, ValueContainer } from './Styles';
 
   4. In case TypeIssues using Select, what are data Select recived? and what are call name?
     - data are Select recived calling: value and options
+
+  5. In step 4, yup we have value and what we do now?
+    - I think something like that - I could pass something like it can be render UI maybe in Select
+    and how to could them?
+    - I need some props to do that
+    - That is an idea. Try it on
+    - I have using something props to do that and call name are:
+      + renderValue
+      + renderOption
+    - Next, I image way to used them
+    - What data are pass throw in this props?
+      + a function
+      + or just data
+      + Why are using function? and why don't used function?
+      + Why are using data? and why don't used data?
+      - function first, I can pass a function that is render any UI what would i want, now ui (data) is flexible
+      in this way when I pass throw a function in Select component, i can handle logic to call function that
+      (function render UI) to render UI I want.
+      - second pass just data, I can define a function in Select and handle logic to excute them,
+      Now i have a problem. That function render ui in Select is fixed. That mean
+      I'm can't control what UI I want render when used Select component in other palce project.
+      --> sumery: I choose way pass a function into props renderValue and renderOption. Because, I want to control
+      what UI I want. Not it's fixed.
+
  */
 
 const propTypes = {
@@ -27,6 +51,8 @@ const propTypes = {
   name: PropTypes.string,
   // value: PropTypes.oneOfType[ PropTypes.string ],
   // options: PropTypes.array.isRequired,
+  renderValue: PropTypes.func,
+  renderOption: PropTypes.func,
 };
 
 const defaultProps = {
@@ -35,6 +61,8 @@ const defaultProps = {
   invalid: false,
   name: undefined,
   // value: undefined,
+  renderValue: undefined,
+  renderOption: undefined
 };
 
 function Select({
@@ -46,6 +74,8 @@ function Select({
   dropdownWidth,
   value,
   options,
+  renderValue,
+  renderOption
 }) {
   return (
     <StyledSelect
