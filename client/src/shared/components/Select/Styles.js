@@ -40,4 +40,14 @@ export const StyledSelect = styled.div`
     `}
 `;
 
-export const ValueContainer = styled.div``;
+export const ValueContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  ${props =>
+    props.variant === 'normal' &&
+    css`
+      min-height: 32px;
+      padding: 5px 5px 5px 10px;
+    `}
+`;

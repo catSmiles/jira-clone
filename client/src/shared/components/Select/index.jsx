@@ -28,8 +28,7 @@ const defaultProps = {
 function Select({ children, className, variant, invalid }) {
   return (
     <StyledSelect className={className} tabIndex="0" variant={variant} invalid={invalid}>
-      {children}
-      <ValueContainer>{/* value input or select appearance here */}</ValueContainer>
+      <ValueContainer variant={variant}>{children}</ValueContainer>
       {/* Dropdown items appearance here */}
       {/* <Dropdown /> */}
     </StyledSelect>

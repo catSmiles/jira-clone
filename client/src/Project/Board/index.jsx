@@ -18,11 +18,12 @@ function Board() {
       {/* <Breadcrumbs /> */}
       {/* <Header /> */}
       {/* <Filters /> */}
-      <Select>Styled select</Select>
-      <Select invalid>Styled select have invalid prop</Select>
-      <Select variant="empty">Styled select with variant is empty</Select>
+      <h2>Styles Select: ValueContainer</h2>
+      <Select>variant = normal</Select>
+      <Select invalid>... have invalid</Select>
+      <Select variant="empty">variant = empty</Select>
       <Select variant="empty" invalid>
-        Styled select have invalid and variant is empty
+       ... have invalid
       </Select>
       {/* <Lists /> */}
     </>
