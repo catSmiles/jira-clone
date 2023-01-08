@@ -15,13 +15,18 @@ import { StyledSelect, ValueContainer } from './Styles';
   3. Image TypeIssues using Select component???
     - How to do TypeIssues tell Select I want change width dropdow on Select?
       + ask: one props take care width dropdown on Select. Call name is "dropdownWidth"
+
+  4. In case TypeIssues using Select, what are data Select recived? and what are call name?
+    - data are Select recived calling: value and options
  */
 
 const propTypes = {
   className: PropTypes.string,
-  variant: PropTypes.oneOf(['normal', 'empty']),
+  variant: PropTypes.oneOf([ 'normal', 'empty' ]),
   invalid: PropTypes.bool,
   name: PropTypes.string,
+  // value: PropTypes.oneOfType[ PropTypes.string ],
+  // options: PropTypes.array.isRequired,
 };
 
 const defaultProps = {
@@ -29,6 +34,7 @@ const defaultProps = {
   variant: 'normal',
   invalid: false,
   name: undefined,
+  // value: undefined,
 };
 
 function Select({
@@ -37,7 +43,9 @@ function Select({
   variant,
   invalid,
   name,
-  dropdownWidth
+  dropdownWidth,
+  value,
+  options,
 }) {
   return (
     <StyledSelect
@@ -54,6 +62,8 @@ function Select({
       </ValueContainer>
       <Dropdown
         dropdownWidth={dropdownWidth}
+        value={value}
+        options={options}
       />
     </StyledSelect>
   );
