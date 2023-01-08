@@ -11,16 +11,16 @@ const infoAssignees = [
     avatarUrl: 'https://i.ibb.co/7JM1P2r/picke-rick.jpg',
     name: 'Pickle Rick',
   },
-  {
-    id: '2',
-    avatarUrl: 'https://i.ibb.co/6n0hLML/baby-yoda.jpg',
-    name: 'Baby Yoda',
-  },
-  {
-    id: '3',
-    avatarUrl: 'https://i.ibb.co/6RJ5hq6/gaben.jpg',
-    name: 'Lord Gaben',
-  },
+  // {
+  //   id: '2',
+  //   avatarUrl: 'https://i.ibb.co/6n0hLML/baby-yoda.jpg',
+  //   name: 'Baby Yoda',
+  // },
+  // {
+  //   id: '3',
+  //   avatarUrl: 'https://i.ibb.co/6RJ5hq6/gaben.jpg',
+  //   name: 'Lord Gaben',
+  // },
 ];
 
 function ProjectBoardListIssue() {

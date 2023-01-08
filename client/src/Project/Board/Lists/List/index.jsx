@@ -10,7 +10,6 @@ function ProjectBoardList() {
       {() => (
         <List>
           <Title>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry BACKLOG
             BACKLOG <IssuesCount>2</IssuesCount>
           </Title>
 
