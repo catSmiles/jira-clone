@@ -42,6 +42,13 @@ import { StyledSelect, ValueContainer } from './Styles';
       --> sumery: I choose way pass a function into props renderValue and renderOption. Because, I want to control
       what UI I want. Not it's fixed.
 
+  6. What next?
+  - I need one props can handle clear value are they?
+    + Yes, but how i do that?
+    + Just define it like a props!
+    + I'm call name is withClearValue
+  - And finaly, I think need one props for onChange
+
  */
 
 const propTypes = {
@@ -53,6 +60,8 @@ const propTypes = {
   // options: PropTypes.array.isRequired,
   renderValue: PropTypes.func,
   renderOption: PropTypes.func,
+  // withClearValue: PropTypes.bool.isRequired,
+  // onChange: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -75,7 +84,9 @@ function Select({
   value,
   options,
   renderValue,
-  renderOption
+  renderOption,
+  // withClearValue
+  // onChange
 }) {
   return (
     <StyledSelect
