@@ -10,7 +10,11 @@ const defaultProps = {
 };
 
 function SelectDropdown({
-  dropdownWidth
+  dropdownWidth,
+  value,
+  options,
+  withClearValue,
+  onChange,
 }) {
   return <p>Dropdown items</p>;
 }

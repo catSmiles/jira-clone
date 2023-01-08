@@ -49,6 +49,14 @@ import { StyledSelect, ValueContainer } from './Styles';
     + I'm call name is withClearValue
   - And finaly, I think need one props for onChange
 
+
+  7. What do I do with Dropdown?
+  - What Dropdown have?
+    + one input for search data list items?
+    + and show list items (not include item was select on Select)?
+  - What are props Dropdown need to working?
+    + something like props for search? and for show list items?
+
  */
 
 const propTypes = {
@@ -105,6 +113,11 @@ function Select({
         dropdownWidth={dropdownWidth}
         value={value}
         options={options}
+        // withClearValue={withClearValue}
+        // onChange={handleChange}
+        // searchValue?
+        // setSearchValue?
+        // isValueEmpty?
       />
     </StyledSelect>
   );
