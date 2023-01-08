@@ -1,7 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function Dropdown() {
+const propTypes = {
+  dropdownWidth: PropTypes.number,
+};
+
+const defaultProps = {
+  dropdownWidth: undefined,
+};
+
+function SelectDropdown({
+  dropdownWidth
+}) {
   return <p>Dropdown items</p>;
 }
 
-export default Dropdown;
+
+
+export default SelectDropdown;
