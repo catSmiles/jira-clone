@@ -20,11 +20,8 @@ function Board() {
       {/* <Filters /> */}
       <h2>Styles Select: ValueContainer</h2>
       <Select>variant = normal</Select>
-      <Select invalid>... have invalid</Select>
-      <Select variant="empty">variant = empty</Select>
-      <Select variant="empty" invalid>
-       ... have invalid
-      </Select>
+      <hr style={{ paddingTop: '300px' }} />
+      <Select dropdownWidth={150}>width is 150</Select>
       {/* <Lists /> */}
     </>
   );

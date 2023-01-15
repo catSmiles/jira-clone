@@ -1,4 +1,4 @@
-import { color, font, mixin } from 'shared/utils/styles';
+import { color, font, mixin, zIndexValues } from 'shared/utils/styles';
 import styled, { css } from 'styled-components';
 
 export const StyledSelect = styled.div`
@@ -50,4 +50,43 @@ export const ValueContainer = styled.div`
       min-height: 32px;
       padding: 5px 5px 5px 10px;
     `}
+`;
+
+/** Dropdown */
+export const Dropdown = styled.div`
+  border: 1px solid #333;
+  z-index: ${zIndexValues.dropdown};
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border-radius: 0 0 4px 4px;
+  background-color: #fff;
+  ${mixin.boxShadowDropdown};
+  ${props => (props.width ? `max-width: ${props.width}px;` : `width: 100%;`)};
+`;
+
+export const DropdownInput = styled.input`
+  padding: 10px 14px 8px;
+  width: 100%;
+  border: none;
+  background-color: none;
+  color: ${color.textDarkest};
+  &:focus {
+    border: none;
+  }
+`;
+
+export const Options = styled.div`
+  max-height: 200px;
+  ${mixin.scrollableY};
+  ${mixin.customScrollbar()};
+`;
+
+export const Option = styled.div`
+  padding: 8px 14px;
+  word-break: break-word;
+  cursor: pointer;
+  &:last-of-type {
+    margin-bottom: 8px;
+  }
 `;
