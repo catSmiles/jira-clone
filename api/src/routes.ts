@@ -6,7 +6,7 @@ import * as projects from 'controllers/projects';
 
 export const attachPublicRoutes = (app: any): void => {
   app.post('/authentication/guest', createGuestAccount);
-  // using Thunder Client run: http://localhost:3030/authentication/guest - with post method
+  // using Thunder Client run: http://localhost:3032/authentication/guest - with post method
 };
 
 export const attachPrivateRoutes = (app: any): void => {
