@@ -18,7 +18,7 @@ class Project extends BaseEntity {
   static validations = {
     // imagine properties was validate: name, url, category
     name: [is.required(), is.maxLength(100)],
-    url: [is.url()],
+    url: is.url(),
     category: [is.required(), is.oneOf(Object.values(ProjectCategory))],
   };
 

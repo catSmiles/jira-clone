@@ -12,19 +12,19 @@ export const attachPublicRoutes = (app: any): void => {
 export const attachPrivateRoutes = (app: any): void => {
   // comments
   app.post('/comments', comments.create);
-  app.delete('/comments:commentId', comments.remove);
-  app.put('/comments:commentId', comments.update);
+  app.put('/comments/:commentId', comments.update);
+  app.delete('/comments/:commentId', comments.remove);
 
   // issues
+  app.get('/issues', issues.getProjectIssues);
+  app.get('/issues/:issueId', issues.getIssueWithUsersAndComments);
   app.post('/issues', issues.create);
   app.put('/issues/:issueId', issues.update);
   app.delete('/issues/:issueId', issues.remove);
-  app.get('/issues', issues.getProjectIssues);
-  app.get('issues/:issueId', issues.getIssueWithUsersAndComments);
 
   // project
-  app.put('/project', projects.update);
   app.get('/project', projects.getProjectWithIssuesAndUsers);
+  app.put('/project', projects.update);
 
   // currentUser
   // imagine way to using

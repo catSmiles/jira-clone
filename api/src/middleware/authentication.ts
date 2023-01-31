@@ -1,19 +1,20 @@
 import { Request } from 'express';
 
 import { verifyToken } from 'utils/authToken';
-import { User } from 'entities';
 import { catchErrors } from 'errors/asyncCatch';
 import { InvalidTokenError } from 'errors/customErrors';
+import { User } from 'entities';
 
 export const authenticateUser = catchErrors(async (req, _res, next) => {
   const token = getAuthTokenFromRequest(req);
+  console.log({ token });
 
   if (!token) {
     throw new InvalidTokenError('Authentication token not found.');
   }
 
   const userId = verifyToken(token).sub;
-  if (userId) {
+  if (!userId) {
     throw new InvalidTokenError('Authentication token is invalid.');
   }
 
@@ -28,7 +29,7 @@ export const authenticateUser = catchErrors(async (req, _res, next) => {
 });
 
 const getAuthTokenFromRequest = (req: Request): string | null => {
-  const authHeader = req.get('authorization') || '';
+  const authHeader = req.get('Authorization') || '';
   const [bearer, token] = authHeader.split(' ');
-  return bearer === 'bearer' && token ? token : null;
+  return bearer === 'Bearer' && token ? token : null;
 };

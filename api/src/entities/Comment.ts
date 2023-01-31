@@ -15,7 +15,7 @@ import is from 'utils/validation';
 class Comment extends BaseEntity {
   // imagine way to using validation?
   static validations = {
-    body: [is.required(), is.maxLength(5000)],
+    body: [is.required(), is.maxLength(50000)],
   };
 
   @PrimaryGeneratedColumn()
@@ -44,6 +44,7 @@ class Comment extends BaseEntity {
   @ManyToOne(
     () => Issue,
     issue => issue.comments,
+    { onDelete: 'CASCADE' },
   )
   issue: Issue;
 

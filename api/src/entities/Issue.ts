@@ -1,3 +1,4 @@
+import striptags from 'striptags';
 import {
   Entity,
   BaseEntity,
@@ -8,13 +9,26 @@ import {
   ManyToOne,
   OneToMany,
   ManyToMany,
+  BeforeInsert,
+  BeforeUpdate,
+  RelationId,
 } from 'typeorm';
 
+import is from 'utils/validation';
 import { IssueType, IssueStatus, IssuePriority } from 'constants/issues';
 import { Project, Comment, User } from 'entities';
 
 @Entity()
 class Issue extends BaseEntity {
+  static validations = {
+    title: [is.required(), is.maxLength(200)],
+    type: [is.required(), is.oneOf(Object.values(IssueType))],
+    status: [is.required(), is.oneOf(Object.values(IssueStatus))],
+    priority: [is.required(), is.oneOf(Object.values(IssuePriority))],
+    position: is.required(),
+    reporterId: is.required(),
+  };
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -80,6 +94,17 @@ class Issue extends BaseEntity {
     user => user.issues,
   )
   users: User[];
+
+  @RelationId((issue: Issue) => issue.users)
+  userIds: number[];
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  setDescriptionText = (): void => {
+    if (this.description) {
+      this.descriptionText = striptags(this.description);
+    }
+  };
 }
 
 export default Issue;

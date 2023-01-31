@@ -1,10 +1,13 @@
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { isPlainObject } from 'lodash';
 
 import { InvalidTokenError } from 'errors/customErrors';
 
-export const signToken = (payload: object): string =>
-  jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30 days' });
+export const signToken = (payload: object, options?: SignOptions): string =>
+  jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: '90 days',
+    ...options,
+  });
 
 export const verifyToken = (token: string): { [key: string]: any } => {
   try {

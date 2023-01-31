@@ -19,8 +19,12 @@ type FieldErrors = { [key: string]: string };
 const is = {
   required: () => (value: Value): ErrorMessage =>
     isNilOrEmptyString(value) && 'This field is required',
+
+  minLength: (min: number) => (value: Value): ErrorMessage =>
+    !!value && value.length < min && `Must be at least ${min} characters`,
+
   maxLength: (max: number) => (value: Value): ErrorMessage =>
-    !!value && value.length > max && `Must be at least ${max} charaters`,
+    !!value && value.length > max && `Must be at most ${max} characters`,
   // why using "!!value"? -> to convert boolean. Exp: (!!0 && 'message error') and (0 && 'message error') Because ErrorMessage give value (false | string)
 
   // imagine way define rule url
@@ -38,12 +42,17 @@ const is = {
   // logic
   // output
   oneOf: (arr: any[]) => (value: Value): ErrorMessage =>
-    !!value && !arr.includes(value) && `Must be one of: [${arr.join(', ')}]`,
+    !!value && !arr.includes(value) && `Must be one of: ${arr.join(', ')}`,
+
+  notEmptyArray: () => (value: Value): ErrorMessage =>
+    Array.isArray(value) && value.length === 0 && 'Please add at least one item',
+
+  email: () => (value: Value): ErrorMessage =>
+    !!value && !/.+@.+\..+/.test(value) && 'Must be a valid email',
 };
 
-const isNilOrEmptyString = (value: Value): boolean => {
-  return value === null || value === undefined || value === '';
-};
+const isNilOrEmptyString = (value: Value): boolean =>
+  value === undefined || value === null || value === '';
 
 // imagine how to generate errors?
 // input?
@@ -55,6 +64,7 @@ export const generateErrors = (
 ): FieldErrors => {
   // imagine fieldValidators: {[key: string]: Validator | Validator[]} - Validator: (value: Value, fieldValues?: FieldValues) => ErrorMessage
   const fieldErrors: FieldErrors = {};
+
   Object.entries(fieldValidators).forEach(([fieldName, validators]) => {
     // imagine validators like this: [ [function], [function] ]
     [validators].flat().forEach(validator => {
@@ -67,7 +77,6 @@ export const generateErrors = (
       }
     });
   });
-
   return fieldErrors;
 };
 

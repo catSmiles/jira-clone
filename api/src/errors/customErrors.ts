@@ -4,8 +4,8 @@ type ErrorData = { [key: string]: any };
 export class CustomError extends Error {
   constructor(
     public message: string,
-    public code: string,
-    public status = 500,
+    public code: string | number = 'INTERNAL_ERROR',
+    public status: number = 500,
     public data: ErrorData = {},
   ) {
     super();
@@ -34,8 +34,8 @@ export class RouteNotFoundError extends CustomError {
 }
 
 // custom EntityNotFoundError
-export class EntityNotFound extends CustomError {
-  constructor(enityName: string) {
-    super(`${enityName} not found.`, 'ENTITY_NOT_FOUND', 404);
+export class EntityNotFoundError extends CustomError {
+  constructor(entityName: string) {
+    super(`${entityName} not found.`, 'ENTITY_NOT_FOUND', 404);
   }
 }

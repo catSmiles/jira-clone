@@ -1,6 +1,6 @@
 import { createConnection, Connection } from 'typeorm';
 
-import { User, Comment, Project, Issue } from 'entities';
+import * as entities from 'entities';
 
 const createDatabaseConnection = (): Promise<Connection> =>
   createConnection({
@@ -11,7 +11,7 @@ const createDatabaseConnection = (): Promise<Connection> =>
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     synchronize: true,
-    entities: [User, Comment, Project, Issue],
+    entities: Object.values(entities),
   });
 
 export default createDatabaseConnection;

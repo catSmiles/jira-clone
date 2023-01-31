@@ -1,22 +1,26 @@
-import express from 'express';
 import 'module-alias/register';
 import 'dotenv/config';
+import 'reflect-metadata';
 
-import { addRespondToResponse } from 'middleware/response';
+import express from 'express';
+import cors from 'cors';
+
 import createDatabaseConnection from 'database/createConnection';
-import { attachPublicRoutes, attachPrivateRoutes } from 'routes';
-
+import { addRespondToResponse } from 'middleware/response';
 import { authenticateUser } from 'middleware/authentication';
-import { RouteNotFoundError } from 'errors/customErrors';
 import { handleError } from 'middleware/errors';
+import { RouteNotFoundError } from 'errors/customErrors';
+
+import { attachPublicRoutes, attachPrivateRoutes } from './routes';
 
 // establish database connection
 const establishDatabaseConnection = async (): Promise<void> => {
   try {
+    console.log('create connection');
     await createDatabaseConnection();
     console.log('db connect successful');
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -26,14 +30,16 @@ const initializeExpress = (): void => {
   const app = express();
 
   // use middleware
+  app.use(cors());
   app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
   app.use(addRespondToResponse);
 
   // using Thunder Client run: http://localhost:3032/authentication/guest - with post method (To create data)
   attachPublicRoutes(app);
 
-  app.get('/', authenticateUser);
+  app.use('/', authenticateUser);
 
   attachPrivateRoutes(app);
 
