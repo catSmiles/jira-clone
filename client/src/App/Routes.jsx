@@ -1,22 +1,20 @@
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
-import history from 'browserHistory';
 import React from 'react';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
+
+import history from 'browserHistory';
 import Project from 'Project';
+import Authenticate from 'Auth/Authenticate';
+import PageError from 'shared/components/PageError';
 
-function PageNotFound() {
-  return <h2>Page not found 404</h2>;
-}
-
-function Routes() {
-  return (
-    <Router history={history}>
-      <Switch>
-        <Redirect exact from="/" to="/project" />
-        <Route path="/project" component={Project} />
-        <Route component={PageNotFound} />
-      </Switch>
-    </Router>
-  );
-}
+const Routes = () => (
+  <Router history={history}>
+    <Switch>
+      <Redirect exact from="/" to="/project" />
+      <Route path="/authenticate" component={Authenticate} />
+      <Route path="/project" component={Project} />
+      <Route component={PageError} />
+    </Switch>
+  </Router>
+);
 
 export default Routes;
