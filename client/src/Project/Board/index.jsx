@@ -29,7 +29,7 @@ function Board(props) {
   return (
     <Fragment>
       <Breadcrumbs items={['Projects', project.name, 'Kanban Board']} />
-      {/* <Header /> */}
+      <Header />
       {/* <Filters /> */}
       <h2>Styles Select: ValueContainer</h2>
       <Select>variant = normal</Select>

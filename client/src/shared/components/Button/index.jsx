@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { StyledButton, Text, StyledSpinner } from './Styles';
 import Icon from 'shared/components/Icon';
 import { color } from 'shared/utils/styles';
+
+import { StyledButton, Text, StyledSpinner } from './Styles';
 
 const propTypes = {
   className: PropTypes.string,
@@ -13,6 +14,7 @@ const propTypes = {
   iconSize: PropTypes.number,
   disabled: PropTypes.bool,
   isWorking: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 const defaultProps = {
@@ -23,30 +25,44 @@ const defaultProps = {
   iconSize: 18,
   disabled: false,
   isWorking: false,
+  onClick: () => {},
 };
 
-function Button({ children, variant, icon, iconSize, disabled, isWorking, ...buttonProps }) {
+const Button = forwardRef((props, ref) => {
+  const { children, variant, icon, iconSize, disabled, isWorking, onClick, ...buttonProps } = props;
+  const handleClick = () => {
+    if (!disabled && !isWorking) {
+      onClick();
+    }
+  };
+
   return (
     <StyledButton
       {...buttonProps}
+      onClick={handleClick}
       variant={variant}
       disabled={disabled || isWorking}
       isWorking={isWorking}
       iconOnly={!children}
+      ref={ref}
     >
       {isWorking && <StyledSpinner size={26} color={getIconColor(variant)} />}
 
-      {!isWorking && icon && typeof icon === 'string' ? <Icon type={icon} size={iconSize} /> : icon}
+      {!isWorking && icon && typeof icon === 'string' ? (
+        <Icon type={icon} size={iconSize} color={getIconColor(variant)} />
+      ) : (
+        icon
+      )}
 
       {children && <Text withPadding={icon || isWorking}>{children}</Text>}
     </StyledButton>
   );
-}
+});
 
 const getIconColor = variant =>
   ['secondary', 'empty'].includes(variant) ? color.textDark : '#fff';
 
-Button.prototype = propTypes;
+Button.propTypes = propTypes;
 Button.defaultProps = defaultProps;
 
 export default Button;
