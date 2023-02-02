@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { color, mixin, font } from 'shared/utils/styles';
-import Input from 'shared/components/Input';
+import InputDebounced from 'shared/components/InputDebounced';
 import Avatar from 'shared/components/Avatar';
 import Button from 'shared/components/Button';
 
@@ -11,10 +11,11 @@ export const Filters = styled.div`
   margin-top: 24px;
 `;
 
-export const SearchInput = styled(Input)`
+export const SearchInput = styled(InputDebounced)`
   width: 160px;
   margin-right: 18px;
 `;
+
 export const Avatars = styled.div`
   display: flex;
   flex-direction: row-reverse;
