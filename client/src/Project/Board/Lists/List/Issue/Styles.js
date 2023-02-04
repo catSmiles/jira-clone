@@ -1,9 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { color, font, mixin } from 'shared/utils/styles';
 import Avatar from 'shared/components/Avatar';
 
-export const IssueLink = styled.a`
+export const IssueLink = styled(Link)`
   display: block;
   margin-bottom: 5px;
 `;
@@ -21,6 +22,12 @@ export const Issue = styled.div`
   @media (max-width: 1100px) {
     padding: 10px 8px;
   }
+  ${props =>
+    props.isBeingDragged &&
+    css`
+      transform: rotate(3deg);
+      box-shadow: 5px 10px 30px 0px rgba(9, 30, 66, 0.15);
+    `}
 `;
 
 export const Title = styled.p`
@@ -42,7 +49,8 @@ export const Assignees = styled.div`
   flex-direction: row-reverse;
   margin-left: 2px;
 `;
+
 export const AssigneeAvatar = styled(Avatar)`
   margin-left: -2px;
-  box-shadow: 0px 0px 0px 2px #fff;
+  box-shadow: 0 0 0 2px #fff;
 `;

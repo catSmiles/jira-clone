@@ -1,47 +1,49 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { useRouteMatch } from 'react-router-dom';
 import { Draggable } from 'react-beautiful-dnd';
 
 import IssueTypeIcon from 'shared/components/IssueTypeIcon';
 import IssuePriorityIcon from 'shared/components/IssuePriorityIcon';
+
 import { IssueLink, Issue, Title, Bottom, Assignees, AssigneeAvatar } from './Styles';
 
-const infoAssignees = [
-  {
-    id: '1',
-    avatarUrl: 'https://i.ibb.co/7JM1P2r/picke-rick.jpg',
-    name: 'Pickle Rick',
-  },
-  // {
-  //   id: '2',
-  //   avatarUrl: 'https://i.ibb.co/6n0hLML/baby-yoda.jpg',
-  //   name: 'Baby Yoda',
-  // },
-  // {
-  //   id: '3',
-  //   avatarUrl: 'https://i.ibb.co/6RJ5hq6/gaben.jpg',
-  //   name: 'Lord Gaben',
-  // },
-];
+const propTypes = {
+  projectUsers: PropTypes.array.isRequired,
+  issue: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+};
 
-function ProjectBoardListIssue() {
+const ProjectBoardListIssue = props => {
+  const { projectUsers, issue, index } = props;
+  const match = useRouteMatch();
+
+  const assignees = issue.userIds.map(userId => projectUsers.find(user => user.id === userId));
+
   return (
-    <Draggable draggableId="draggable-1" index={0}>
-      {() => (
-        <IssueLink>
-          <Issue>
-            <Title>Click on an issue to see what's behind it.</Title>
+    <Draggable draggableId={issue.id.toString()} index={index}>
+      {(provided, snapshot) => (
+        <IssueLink
+          to={`${match.url}/issues/${issue.id}`}
+          ref={provided.innerRef}
+          data-testid="list-issue"
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <Issue isBeingDragged={snapshot.isDragging && !snapshot.isDropAnimating}>
+            <Title>{issue.title}</Title>
             <Bottom>
               <div>
-                <IssueTypeIcon type="task" />
-                <IssuePriorityIcon priority="2" top={-1} left={4} />
+                <IssueTypeIcon type={issue.type} />
+                <IssuePriorityIcon priority={issue.priority} top={-1} left={4} />
               </div>
               <Assignees>
-                {infoAssignees.map(user => (
+                {assignees.map(user => (
                   <AssigneeAvatar
                     key={user.id}
+                    size={24}
                     avatarUrl={user.avatarUrl}
                     name={user.name}
-                    size={24}
                   />
                 ))}
               </Assignees>
@@ -51,6 +53,8 @@ function ProjectBoardListIssue() {
       )}
     </Draggable>
   );
-}
+};
+
+ProjectBoardListIssue.propTypes = propTypes;
 
 export default ProjectBoardListIssue;

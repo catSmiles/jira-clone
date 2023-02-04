@@ -2,18 +2,12 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
+import useMergeState from 'shared/hooks/mergeState';
 import Breadcrumbs from 'shared/components/Breadcrumbs';
-import Header from './Header';
-import Avatar from 'shared/components/Avatar';
-import Input from 'shared/components/Input';
-import Button from 'shared/components/Button';
 
-import Icon from 'shared/components/Icon';
+import Header from './Header';
 import Filters from './Filters';
 import Lists from './Lists';
-
-import Select from 'shared/components/Select';
-import useMergeState from 'shared/hooks/mergeState';
 
 const propTypes = {
   project: PropTypes.object.isRequired,
@@ -26,7 +20,7 @@ const defaultFilters = {
   userIds: [],
   myOnly: false,
   recent: false,
-}
+};
 
 function Board(props) {
   const { project, fetchProject, updateLocalProjectIssues } = props;
@@ -47,11 +41,11 @@ function Board(props) {
         mergeFilters={mergeFilters}
       />
 
-      {/* <h2>Styles Select: ValueContainer</h2>
-      <Select>variant = normal</Select>
-      <hr style={{ paddingTop: '300px' }} />
-      <Select dropdownWidth={150}>width is 150</Select> */}
-      {/* <Lists /> */}
+      <Lists
+        project={project}
+        filters={filters}
+        updateLocalProjectIssues={updateLocalProjectIssues}
+      />
     </Fragment>
   );
 }
