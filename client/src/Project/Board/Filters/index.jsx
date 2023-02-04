@@ -19,8 +19,7 @@ const propTypes = {
   mergeFilters: PropTypes.func.isRequired,
 };
 
-const ProjectBoardFilters = props => {
-  const { projectUsers, defaultFilters, filters, mergeFilters } = props;
+const ProjectBoardFilters = ({ projectUsers, defaultFilters, filters, mergeFilters }) => {
   const { searchTerm, userIds, myOnly, recent } = filters;
 
   const areFiltersCleared = !searchTerm && userIds.length === 0 && !myOnly && !recent;
@@ -44,8 +43,8 @@ const ProjectBoardFilters = props => {
         ))}
       </Avatars>
       <StyledButton
-        isActive={myOnly}
         variant="empty"
+        isActive={myOnly}
         onClick={() => mergeFilters({ myOnly: !myOnly })}
       >
         Only My Issues

@@ -5,29 +5,24 @@ import { color, font, mixin } from 'shared/utils/styles';
 export const List = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 0 5px;
   min-height: 400px;
   width: 25%;
   border-radius: 3px;
-  background-color: ${color.backgroundLightest};
-
-  overflow: hidden;
+  background: ${color.backgroundLightest};
 `;
-export const Title = styled.div`
-  // padding: 13px 10px 17px;
-  padding: 13px 0 17px;
-  margin: 0 10px;
 
-  color: ${color.textMedium};
+export const Title = styled.div`
+  padding: 13px 10px 17px;
   text-transform: uppercase;
+  color: ${color.textMedium};
   ${font.size(12.5)};
-  ${mixin.truncateText};
+  ${mixin.truncateText}
 `;
 
 export const IssuesCount = styled.span`
-  ${font.size(13)};
   text-transform: lowercase;
+  ${font.size(13)};
 `;
 
 export const Issues = styled.div`

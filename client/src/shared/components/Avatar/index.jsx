@@ -12,13 +12,12 @@ const propTypes = {
 
 const defaultProps = {
   className: undefined,
-  // avatarUrl: 'https://i.ibb.co/7JM1P2r/picke-rick.jpg',
   avatarUrl: null,
-  name: 'Trung',
+  name: '',
   size: 32,
 };
 
-function Avatar({ className, avatarUrl, name, size, ...otherProps }) {
+const Avatar = ({ className, avatarUrl, name, size, ...otherProps }) => {
   const sharedProps = {
     className,
     size,
@@ -35,17 +34,17 @@ function Avatar({ className, avatarUrl, name, size, ...otherProps }) {
       <span>{name.charAt(0)}</span>
     </Letter>
   );
-}
+};
 
 const colors = [
-  '#da7657',
-  '#6ada57',
-  '#5784da',
-  '#aa57da',
-  '#da5757',
-  '#da5792',
-  '#57daca',
-  '#57a5da',
+  '#DA7657',
+  '#6ADA57',
+  '#5784DA',
+  '#AA57DA',
+  '#DA5757',
+  '#DA5792',
+  '#57DACA',
+  '#57A5DA',
 ];
 
 const getColorFromName = name => colors[name.toLocaleLowerCase().charCodeAt(0) % colors.length];

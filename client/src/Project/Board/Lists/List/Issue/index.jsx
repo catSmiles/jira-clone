@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { useRouteMatch } from 'react-router-dom';
 import { Draggable } from 'react-beautiful-dnd';
 
-import IssueTypeIcon from 'shared/components/IssueTypeIcon';
-import IssuePriorityIcon from 'shared/components/IssuePriorityIcon';
+import { IssueTypeIcon, IssuePriorityIcon } from 'shared/components';
 
 import { IssueLink, Issue, Title, Bottom, Assignees, AssigneeAvatar } from './Styles';
 
@@ -14,8 +13,7 @@ const propTypes = {
   index: PropTypes.number.isRequired,
 };
 
-const ProjectBoardListIssue = props => {
-  const { projectUsers, issue, index } = props;
+const ProjectBoardListIssue = ({ projectUsers, issue, index }) => {
   const match = useRouteMatch();
 
   const assignees = issue.userIds.map(userId => projectUsers.find(user => user.id === userId));

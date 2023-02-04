@@ -1,58 +1,67 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 
-import ProjectAvatar from 'shared/components/ProjectAvatar';
+import { ProjectCategoryCopy } from 'shared/constants/projects';
+import { Icon, ProjectAvatar } from 'shared/components';
+
 import {
   Sidebar,
   ProjectInfo,
   ProjectTexts,
   ProjectName,
   ProjectCategory,
+  Divider,
   LinkItem,
   LinkText,
-  Devider,
   NotImplemented,
 } from './Styles';
-import Icon from 'shared/components/Icon';
-// import { NavLink } from 'react-router-dom';
 
-function ProjectSidebar() {
+const propTypes = {
+  project: PropTypes.object.isRequired,
+};
+
+const ProjectSidebar = ({ project }) => {
+  const match = useRouteMatch();
+
   return (
     <Sidebar>
       <ProjectInfo>
         <ProjectAvatar />
         <ProjectTexts>
-          <ProjectName>singularity 1.0</ProjectName>
-          <ProjectCategory>Software project</ProjectCategory>
+          <ProjectName>{project.name}</ProjectName>
+          <ProjectCategory>{ProjectCategoryCopy[project.category]} project</ProjectCategory>
         </ProjectTexts>
       </ProjectInfo>
 
-      {renderLinkItem('Kanban Board', 'board', '/board')}
-      {renderLinkItem('Project settings', 'settings', '/settings')}
-
-      <Devider />
-
-      {renderLinkItem('Releases', 'shipping')}
-      {renderLinkItem('Issues and filters', 'issues')}
-      {renderLinkItem('Pages', 'page')}
-      {renderLinkItem('Reports', 'reports')}
-      {renderLinkItem('Components', 'component')}
+      {renderLinkItem(match, 'Kanban Board', 'board', '/board')}
+      {renderLinkItem(match, 'Project settings', 'settings', '/settings')}
+      <Divider />
+      {renderLinkItem(match, 'Releases', 'shipping')}
+      {renderLinkItem(match, 'Issues and filters', 'issues')}
+      {renderLinkItem(match, 'Pages', 'page')}
+      {renderLinkItem(match, 'Reports', 'reports')}
+      {renderLinkItem(match, 'Components', 'component')}
     </Sidebar>
   );
-}
+};
 
-const renderLinkItem = (text, iconType, path) => {
+const renderLinkItem = (match, text, iconType, path) => {
   const isImplemented = !!path;
 
-  // const LinkItemProps = isImplemented ? { as: NavLink, expect: true, to: path } : { as: 'div' };
-  const LinkItemProps = isImplemented ? { as: 'a' } : { as: 'div' };
+  const linkItemProps = isImplemented
+    ? { as: NavLink, exact: true, to: `${match.path}${path}` }
+    : { as: 'div' };
 
   return (
-    <LinkItem {...LinkItemProps}>
+    <LinkItem {...linkItemProps}>
       <Icon type={iconType} />
       <LinkText>{text}</LinkText>
-      {!isImplemented && <NotImplemented>Not Implemented</NotImplemented>}
+      {!isImplemented && <NotImplemented>Not implemented</NotImplemented>}
     </LinkItem>
   );
 };
+
+ProjectSidebar.propTypes = propTypes;
 
 export default ProjectSidebar;

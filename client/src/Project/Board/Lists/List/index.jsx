@@ -20,8 +20,7 @@ const defaultProps = {
   currentUserId: null,
 };
 
-const ProjectBoardList = props => {
-  const { status, project, filters, currentUserId } = props;
+const ProjectBoardList = ({ status, project, filters, currentUserId }) => {
   const filteredIssues = filterIssues(project.issues, filters, currentUserId);
   const filteredListIssues = getSortedListIssues(filteredIssues, status);
   const allListIssues = getSortedListIssues(project.issues, status);

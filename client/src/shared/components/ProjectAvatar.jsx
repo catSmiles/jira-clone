@@ -5,6 +5,7 @@ const propTypes = {
   className: PropTypes.string,
   size: PropTypes.number,
 };
+
 const defaultProps = {
   className: undefined,
   size: 40,

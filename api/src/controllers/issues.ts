@@ -98,9 +98,9 @@ export const getProjectIssues = catchErrors(async (req, res) => {
 // output
 
 export const getIssueWithUsersAndComments = catchErrors(async (req, res) => {
-  const issues = await findEntityOrThrow(Issue, req.params.issueId, {
+  const issue = await findEntityOrThrow(Issue, req.params.issueId, {
     // https://stackoverflow.com/questions/59031198/typeorm-how-to-get-relations-of-relations
     relations: ['users', 'comments', 'comments.user'],
   });
-  res.respond({ issues });
+  res.respond({ issue });
 });

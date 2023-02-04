@@ -1,127 +1,207 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import useOnOutsideClick from 'shared/hooks/onOutsideClick';
+import { KeyCodes } from 'shared/constants/keyCodes';
+import Icon from 'shared/components/Icon';
+
 import Dropdown from './Dropdown';
-import { StyledSelect, ValueContainer } from './Styles';
-
-/**
-  Status of select
-  1. No select. It's time select is clear.
-
-  2. Selected. It's time select was dirty
-    - when clicked
-      + mostly, show input + show all dropdown items it's have (No include item was selected).
-
-  3. Image TypeIssues using Select component???
-    - How to do TypeIssues tell Select I want change width dropdow on Select?
-      + ask: one props take care width dropdown on Select. Call name is "dropdownWidth"
-
-  4. In case TypeIssues using Select, what are data Select recived? and what are call name?
-    - data are Select recived calling: value and options
-
-  5. In step 4, yup we have value and what we do now?
-    - I think something like that - I could pass something like it can be render UI maybe in Select
-    and how to could them?
-    - I need some props to do that
-    - That is an idea. Try it on
-    - I have using something props to do that and call name are:
-      + renderValue
-      + renderOption
-    - Next, I image way to used them
-    - What data are pass throw in this props?
-      + a function
-      + or just data
-      + Why are using function? and why don't used function?
-      + Why are using data? and why don't used data?
-      - function first, I can pass a function that is render any UI what would i want, now ui (data) is flexible
-      in this way when I pass throw a function in Select component, i can handle logic to call function that
-      (function render UI) to render UI I want.
-      - second pass just data, I can define a function in Select and handle logic to excute them,
-      Now i have a problem. That function render ui in Select is fixed. That mean
-      I'm can't control what UI I want render when used Select component in other palce project.
-      --> sumery: I choose way pass a function into props renderValue and renderOption. Because, I want to control
-      what UI I want. Not it's fixed.
-
-  6. What next?
-  - I need one props can handle clear value are they?
-    + Yes, but how i do that?
-    + Just define it like a props!
-    + I'm call name is withClearValue
-  - And finaly, I think need one props for onChange
-
-
-  7. What do I do with Dropdown?
-  - What Dropdown have?
-    + one input for search data list items?
-    + and show list items (not include item was select on Select)?
-  - What are props Dropdown need to working?
-    + something like props for search? and for show list items?
-
- */
+import {
+  StyledSelect,
+  ValueContainer,
+  ChevronIcon,
+  Placeholder,
+  ValueMulti,
+  ValueMultiItem,
+  AddMore,
+} from './Styles';
 
 const propTypes = {
   className: PropTypes.string,
-  variant: PropTypes.oneOf([ 'normal', 'empty' ]),
-  invalid: PropTypes.bool,
+  variant: PropTypes.oneOf(['normal', 'empty']),
+  dropdownWidth: PropTypes.number,
   name: PropTypes.string,
-  // value: PropTypes.oneOfType[ PropTypes.string ],
-  // options: PropTypes.array.isRequired,
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number]),
+  defaultValue: PropTypes.any,
+  placeholder: PropTypes.string,
+  invalid: PropTypes.bool,
+  options: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onCreate: PropTypes.func,
+  isMulti: PropTypes.bool,
+  withClearValue: PropTypes.bool,
   renderValue: PropTypes.func,
   renderOption: PropTypes.func,
-  // withClearValue: PropTypes.bool.isRequired,
-  // onChange: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
   className: undefined,
   variant: 'normal',
-  invalid: false,
+  dropdownWidth: undefined,
   name: undefined,
-  // value: undefined,
+  value: undefined,
+  defaultValue: undefined,
+  placeholder: 'Select',
+  invalid: false,
+  onCreate: undefined,
+  isMulti: false,
+  withClearValue: true,
   renderValue: undefined,
-  renderOption: undefined
+  renderOption: undefined,
 };
 
-function Select({
-  children,
+const Select = ({
   className,
   variant,
-  invalid,
-  name,
   dropdownWidth,
-  value,
+  name,
+  value: propsValue,
+  defaultValue,
+  placeholder,
+  invalid,
   options,
-  renderValue,
-  renderOption,
-  // withClearValue
-  // onChange
-}) {
+  onChange,
+  onCreate,
+  isMulti,
+  withClearValue,
+  renderValue: propsRenderValue,
+  renderOption: propsRenderOption,
+}) => {
+  const [stateValue, setStateValue] = useState(defaultValue || (isMulti ? [] : null));
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+
+  const isControlled = propsValue !== undefined;
+  const value = isControlled ? propsValue : stateValue; 
+
+  const $selectRef = useRef();
+  const $inputRef = useRef();
+
+  const activateDropdown = () => {
+    if (isDropdownOpen) {
+      $inputRef.current.focus();
+    } else {
+      setDropdownOpen(true);
+    }
+  };
+
+  const deactivateDropdown = () => {
+    setDropdownOpen(false);
+    setSearchValue('');
+    $selectRef.current.focus();
+  };
+
+  useOnOutsideClick($selectRef, isDropdownOpen, deactivateDropdown);
+
+  const preserveValueType = newValue => {
+    const areOptionValuesNumbers = options.some(option => typeof option.value === 'number');
+
+    if (areOptionValuesNumbers) {
+      if (isMulti) {
+        return newValue.map(Number);
+      }
+      if (newValue) {
+        return Number(newValue);
+      }
+    }
+    return newValue;
+  };
+
+  const handleChange = newValue => {
+    if (!isControlled) {
+      setStateValue(preserveValueType(newValue));
+    }
+    onChange(preserveValueType(newValue));
+  };
+
+  const removeOptionValue = optionValue => {
+    handleChange(value.filter(val => val !== optionValue));
+  };
+
+  const handleFocusedSelectKeydown = event => {
+    if (isDropdownOpen) return;
+
+    if (event.keyCode === KeyCodes.ENTER) {
+      event.preventDefault();
+    }
+    if (event.keyCode !== KeyCodes.ESCAPE && event.keyCode !== KeyCodes.TAB && !event.shiftKey) {
+      setDropdownOpen(true);
+    }
+  };
+
+  const getOption = optionValue => options.find(option => option.value === optionValue);
+  const getOptionLabel = optionValue => (getOption(optionValue) || { label: '' }).label;
+
+  const isValueEmpty = isMulti ? !value.length : !getOption(value);
+
   return (
     <StyledSelect
       className={className}
-      tabIndex="0"
       variant={variant}
+      ref={$selectRef}
+      tabIndex="0"
+      onKeyDown={handleFocusedSelectKeydown}
       invalid={invalid}
     >
       <ValueContainer
         variant={variant}
         data-testid={name ? `select:${name}` : 'select'}
+        onClick={activateDropdown}
       >
-        {children}
+        {isValueEmpty && <Placeholder>{placeholder}</Placeholder>}
+
+        {!isValueEmpty && !isMulti && propsRenderValue
+          ? propsRenderValue({ value })
+          : getOptionLabel(value)}
+
+        {!isValueEmpty && isMulti && (
+          <ValueMulti variant={variant}>
+            {value.map(optionValue =>
+              propsRenderValue ? (
+                propsRenderValue({
+                  value: optionValue,
+                  removeOptionValue: () => removeOptionValue(optionValue),
+                })
+              ) : (
+                <ValueMultiItem key={optionValue} onClick={() => removeOptionValue(optionValue)}>
+                  {getOptionLabel(optionValue)}
+                  <Icon type="close" size={14} />
+                </ValueMultiItem>
+              ),
+            )}
+            <AddMore>
+              <Icon type="plus" />
+              Add more
+            </AddMore>
+          </ValueMulti>
+        )}
+
+        {(!isMulti || isValueEmpty) && variant !== 'empty' && (
+          <ChevronIcon type="chevron-down" top={1} />
+        )}
       </ValueContainer>
-      <Dropdown
-        dropdownWidth={dropdownWidth}
-        value={value}
-        options={options}
-        // withClearValue={withClearValue}
-        // onChange={handleChange}
-        // searchValue?
-        // setSearchValue?
-        // isValueEmpty?
-      />
+
+      {isDropdownOpen && (
+        <Dropdown
+          dropdownWidth={dropdownWidth}
+          value={value}
+          isValueEmpty={isValueEmpty}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          $selectRef={$selectRef}
+          $inputRef={$inputRef}
+          deactivateDropdown={deactivateDropdown}
+          options={options}
+          onChange={handleChange}
+          onCreate={onCreate}
+          isMulti={isMulti}
+          withClearValue={withClearValue}
+          propsRenderOption={propsRenderOption}
+        />
+      )}
     </StyledSelect>
   );
-}
+};
 
 Select.propTypes = propTypes;
 Select.defaultProps = defaultProps;

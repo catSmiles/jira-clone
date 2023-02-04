@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
-/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-/** THIS IS FILE COPY OF https://necolas.github.io/normalize.css */
+
+/** DO NOT ALTER THIS FILE. It is a copy of https://necolas.github.io/normalize.css/ */
 
 export default createGlobalStyle`
   html {

@@ -21,9 +21,7 @@ const defaultProps = {
   onChange: () => {},
 };
 
-const Input = forwardRef((props, ref) => {
-  const { icon, className, filter, onChange, ...inputProps } = props;
-
+const Input = forwardRef(({ icon, className, filter, onChange, ...inputProps }, ref) => {
   const handleChange = event => {
     if (!filter || filter.test(event.target.value)) {
       onChange(event.target.value, event);

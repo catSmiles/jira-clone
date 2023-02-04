@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import { isEqual } from 'lodash';
 
 import api from 'shared/utils/api';

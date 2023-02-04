@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
-import { color, mixin, font } from 'shared/utils/styles';
-import InputDebounced from 'shared/components/InputDebounced';
-import Avatar from 'shared/components/Avatar';
-import Button from 'shared/components/Button';
+import { color, font, mixin } from 'shared/utils/styles';
+import { InputDebounced, Avatar, Button } from 'shared/components';
 
 export const Filters = styled.div`
   display: flex;
@@ -12,8 +10,8 @@ export const Filters = styled.div`
 `;
 
 export const SearchInput = styled(InputDebounced)`
-  width: 160px;
   margin-right: 18px;
+  width: 160px;
 `;
 
 export const Avatars = styled.div`
@@ -26,9 +24,9 @@ export const AvatarIsActiveBorder = styled.div`
   display: inline-flex;
   margin-left: -2px;
   border-radius: 50%;
-  ${props => props.isActive && `box-shadow: 0 0 0 4px ${color.primary}`};
-  ${mixin.clickable};
   transition: transform 0.1s;
+  ${mixin.clickable};
+  ${props => props.isActive && `box-shadow: 0 0 0 4px ${color.primary}`}
   &:hover {
     transform: translateY(-5px);
   }
@@ -37,19 +35,20 @@ export const AvatarIsActiveBorder = styled.div`
 export const StyledAvatar = styled(Avatar)`
   box-shadow: 0 0 0 2px #fff;
 `;
+
 export const StyledButton = styled(Button)`
   margin-left: 6px;
 `;
 
 export const ClearAll = styled.div`
-  border-left: 1px solid ${color.borderLightest};
   height: 32px;
   line-height: 32px;
-  padding-left: 12px;
   margin-left: 15px;
+  padding-left: 12px;
+  border-left: 1px solid ${color.borderLightest};
   color: ${color.textDark};
-  ${font.size(14.5)};
-  ${mixin.clickable};
+  ${font.size(14.5)}
+  ${mixin.clickable}
   &:hover {
     color: ${color.textMedium};
   }

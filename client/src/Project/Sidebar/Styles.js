@@ -1,5 +1,6 @@
-import { sizes, color, zIndexValues, mixin, font } from 'shared/utils/styles';
 import styled from 'styled-components';
+
+import { color, sizes, font, mixin, zIndexValues } from 'shared/utils/styles';
 
 export const Sidebar = styled.div`
   position: fixed;
@@ -7,17 +8,15 @@ export const Sidebar = styled.div`
   top: 0;
   left: ${sizes.appNavBarLeftWidth}px;
   height: 100vh;
-  padding: 0 16px 24px;
   width: ${sizes.secondarySideBarWidth}px;
+  padding: 0 16px 24px;
+  background: ${color.backgroundLightest};
   border-right: 1px solid ${color.borderLightest};
-  background-color: ${color.backgroundLightest};
   ${mixin.scrollableY}
-  ${mixin.customScrollbar()};
-
+  ${mixin.customScrollbar()}
   @media (max-width: 1100px) {
     width: ${sizes.secondarySideBarWidth - 10}px;
   }
-
   @media (max-width: 999px) {
     display: none;
   }
@@ -33,31 +32,37 @@ export const ProjectTexts = styled.div`
 `;
 
 export const ProjectName = styled.div`
-  ${font.size(15)};
   color: ${color.textDark};
+  ${font.size(15)};
   ${font.medium};
 `;
 
 export const ProjectCategory = styled.div`
-  ${font.size(13)};
   color: ${color.textMedium};
+  ${font.size(13)};
 `;
 
-export const LinkItem = styled.a`
+export const Divider = styled.div`
+  margin-top: 17px;
+  padding-top: 18px;
+  border-top: 1px solid ${color.borderLight};
+`;
+
+export const LinkItem = styled.div`
   position: relative;
   display: flex;
   padding: 8px 12px;
-  ${mixin.clickable};
   border-radius: 3px;
+  ${mixin.clickable}
   ${props =>
-    !props.to ? `cursor: not-allowed;` : `&:hover {background-color: ${color.backgroundLight};}`}
+    !props.to ? `cursor: not-allowed;` : `&:hover { background: ${color.backgroundLight}; }`}
   i {
     margin-right: 15px;
-    ${font.size(20)}
+    font-size: 20px;
   }
   &.active {
     color: ${color.primary};
-    background-color: ${color.backgroundLight};
+    background: ${color.backgroundLight};
     i {
       color: ${color.primary};
     }
@@ -69,28 +74,20 @@ export const LinkText = styled.div`
   ${font.size(14.7)};
 `;
 
-export const Devider = styled.div`
-  margin-top: 17px;
-  padding-top: 18px;
-  border-top: 1px solid ${color.borderLight};
-`;
-
 export const NotImplemented = styled.div`
+  display: inline-block;
   position: absolute;
-  left: 40px;
   top: 7px;
+  left: 40px;
   width: 140px;
   padding: 5px 0 5px 8px;
-
-  background-color: ${color.backgroundMedium};
-  color: ${color.textDark};
   border-radius: 3px;
-  opacity: 0;
-
   text-transform: uppercase;
+  color: ${color.textDark};
+  background: ${color.backgroundMedium};
+  opacity: 0;
   ${font.size(11.5)};
-  ${font.bold};
-
+  ${font.bold}
   ${LinkItem}:hover & {
     opacity: 1;
   }

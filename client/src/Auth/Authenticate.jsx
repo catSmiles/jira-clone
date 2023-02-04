@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import api from 'shared/utils/api';
+import toast from 'shared/utils/toast';
 import { getStoredAuthToken, storeAuthToken } from 'shared/utils/authToken';
-import PageLoader from 'shared/components/PageLoader';
+import { PageLoader } from 'shared/components';
 
 const Authenticate = () => {
   const history = useHistory();
@@ -15,7 +16,7 @@ const Authenticate = () => {
         storeAuthToken(authToken);
         history.push('/');
       } catch (error) {
-        console.log(error);
+        toast.error(error);
       }
     };
 
@@ -27,4 +28,4 @@ const Authenticate = () => {
   return <PageLoader />;
 };
 
-export default Authenticate; 
+export default Authenticate;
