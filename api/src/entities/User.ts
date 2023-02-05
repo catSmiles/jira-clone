@@ -8,12 +8,11 @@ import {
   OneToMany,
   ManyToOne,
   ManyToMany,
-  JoinTable,
   RelationId,
 } from 'typeorm';
 
 import is from 'utils/validation';
-import { Comment, Project, Issue } from 'entities';
+import { Comment, Project, Issue } from '.';
 
 @Entity()
 class User extends BaseEntity {
@@ -21,6 +20,7 @@ class User extends BaseEntity {
     name: [is.required(), is.maxLength(100)],
     email: [is.required(), is.email(), is.maxLength(200)],
   };
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -34,10 +34,10 @@ class User extends BaseEntity {
   avatarUrl: string;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updateAt: Date;
+  updatedAt: Date;
 
   // relation with Comment entity
   @OneToMany(
@@ -58,7 +58,6 @@ class User extends BaseEntity {
     () => Issue,
     issue => issue.users,
   )
-  @JoinTable()
   issues: Issue[];
 
   @RelationId((user: User) => user.project) // Loads id (or ids) of specific relations into properties. For example, if you have a many-to-one Project in your User entity, you can have a new project id by marking a new property with @RelationId.

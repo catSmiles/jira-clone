@@ -1,5 +1,5 @@
 import { Comment } from 'entities';
-import { catchErrors } from 'errors/asyncCatch';
+import { catchErrors } from 'errors';
 import { createEntity, deleteEntity, updateEntity } from 'utils/typeorm';
 
 export const create = catchErrors(async (req, res) => {
@@ -12,7 +12,6 @@ export const remove = catchErrors(async (req, res) => {
   res.respond({ comment });
 });
 
-// imagine way update comment
 export const update = catchErrors(async (req, res) => {
   const comment = await updateEntity(Comment, req.params.commentId, req.body);
   res.respond({ comment });

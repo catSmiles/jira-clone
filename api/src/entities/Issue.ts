@@ -1,22 +1,23 @@
 import striptags from 'striptags';
 import {
-  Entity,
   BaseEntity,
-  PrimaryGeneratedColumn,
+  Entity,
   Column,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
   OneToMany,
   ManyToMany,
-  BeforeInsert,
-  BeforeUpdate,
+  JoinTable,
   RelationId,
+  BeforeUpdate,
+  BeforeInsert,
 } from 'typeorm';
 
 import is from 'utils/validation';
 import { IssueType, IssueStatus, IssuePriority } from 'constants/issues';
-import { Project, Comment, User } from 'entities';
+import { Comment, Project, User } from '.';
 
 @Entity()
 class Issue extends BaseEntity {
@@ -35,12 +36,6 @@ class Issue extends BaseEntity {
   @Column('varchar')
   title: string;
 
-  @Column('text', { nullable: true })
-  description: string | null;
-
-  @Column('text', { nullable: true })
-  descriptionText: string | null;
-
   @Column('varchar')
   type: IssueType;
 
@@ -53,25 +48,30 @@ class Issue extends BaseEntity {
   @Column('double precision')
   position: number;
 
-  @Column('integer', { nullable: true })
-  timeSpent: number | null;
+  @Column('text', { nullable: true })
+  description: string | null;
 
-  @Column('integer', { nullable: true })
-  timeRemaning: number | null;
+  @Column('text', { nullable: true })
+  descriptionText: string | null;
 
   @Column('integer', { nullable: true })
   estimate: number | null;
 
+  @Column('integer', { nullable: true })
+  timeSpent: number | null;
+
+  @Column('integer', { nullable: true })
+  timeRemaining: number | null;
+
   @CreateDateColumn({ type: 'timestamp' })
-  createAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updateAt: Date;
+  updatedAt: Date;
 
   @Column('integer')
   reporterId: number;
 
-  // relation with Project entity
   @ManyToOne(
     () => Project,
     project => project.issues,
@@ -81,18 +81,17 @@ class Issue extends BaseEntity {
   @Column('integer')
   projectId: number;
 
-  // relation with Comment entity
   @OneToMany(
     () => Comment,
     comment => comment.issue,
   )
   comments: Comment[];
 
-  // relation with User entity
   @ManyToMany(
     () => User,
     user => user.issues,
   )
+  @JoinTable()
   users: User[];
 
   @RelationId((issue: Issue) => issue.users)

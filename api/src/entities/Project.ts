@@ -8,15 +8,13 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { User, Issue } from 'entities';
-import { ProjectCategory } from 'constants/projects';
-
 import is from 'utils/validation';
+import { ProjectCategory } from 'constants/projects';
+import { Issue, User } from '.';
 
 @Entity()
 class Project extends BaseEntity {
   static validations = {
-    // imagine properties was validate: name, url, category
     name: [is.required(), is.maxLength(100)],
     url: is.url(),
     category: [is.required(), is.oneOf(Object.values(ProjectCategory))],
@@ -38,10 +36,10 @@ class Project extends BaseEntity {
   category: ProjectCategory;
 
   @CreateDateColumn({ type: 'timestamp' })
-  crateAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updateAt: Date;
+  updatedAt: Date;
 
   // relation with User entity
   @OneToMany(

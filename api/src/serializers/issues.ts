@@ -1,4 +1,5 @@
 import { pick } from 'lodash';
+
 import { Issue } from 'entities';
 
 // _.pick(object, [paths]) - Creates an object composed of the picked object properties.

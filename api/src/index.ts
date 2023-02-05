@@ -9,7 +9,7 @@ import createDatabaseConnection from 'database/createConnection';
 import { addRespondToResponse } from 'middleware/response';
 import { authenticateUser } from 'middleware/authentication';
 import { handleError } from 'middleware/errors';
-import { RouteNotFoundError } from 'errors/customErrors';
+import { RouteNotFoundError } from 'errors';
 
 import { attachPublicRoutes, attachPrivateRoutes } from './routes';
 
@@ -36,7 +36,7 @@ const initializeExpress = (): void => {
 
   app.use(addRespondToResponse);
 
-  // using Thunder Client run: http://localhost:3032/authentication/guest - with post method (To create data)
+  // using Thunder Client run: http://localhost:3033/authentication/guest - with post method (To create data)
   attachPublicRoutes(app);
 
   app.use('/', authenticateUser);
@@ -47,11 +47,11 @@ const initializeExpress = (): void => {
   app.use((req, _res, next) => next(new RouteNotFoundError(req.originalUrl)));
 
   // handle error
-  app.use(handleError); 
+  app.use(handleError);
 
   // start express server
   app.listen(process.env.PORT, () => {
-    console.log(`server running on port ${process.env.PORT}`);
+    console.log(`Server listen on port ${process.env.PORT}`);
   });
 };
 

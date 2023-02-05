@@ -39,7 +39,6 @@ const ProjectBoardIssueDetails = ({
   if (error) return <PageError />;
 
   const { issue } = data;
-  debugger;
 
   const updateLocalIssueDetails = fields =>
     setLocalData(currentData => ({ issue: { ...currentData.issue, ...fields } }));

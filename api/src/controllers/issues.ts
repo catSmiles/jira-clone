@@ -1,42 +1,6 @@
 import { Issue } from 'entities';
-
-import { catchErrors } from 'errors/asyncCatch';
-
+import { catchErrors } from 'errors';
 import { createEntity, updateEntity, deleteEntity, findEntityOrThrow } from 'utils/typeorm';
-
-export const create = catchErrors(async (req, res) => {
-  const listPosition = await caculatePosition(req.body);
-  const issue = await createEntity(Issue, { ...req.body, position: listPosition });
-  res.respond({ issue });
-});
-
-// caculatePosition
-const caculatePosition = async ({ projectId, status }: Issue): Promise<number> => {
-  const issues = await Issue.find({ projectId, status });
-  const listPositions = issues.map(({ position }) => position);
-  if (listPositions.length > 0) {
-    return Math.min(...listPositions) - 1;
-  }
-  return 1;
-};
-
-// Imagine update Issue
-// input: Issue, id, input
-// logic:
-// output: respond issue (updated)
-export const update = catchErrors(async (req, res) => {
-  const issue = await updateEntity(Issue, req.params.issueId, req.body);
-  res.respond({ issue });
-});
-
-// Imagine remove Issue
-// input: Issue, id
-// logic
-// output: Issue
-export const remove = catchErrors(async (req, res) => {
-  const issue = await deleteEntity(Issue, req.params.issueId);
-  res.respond({ issue });
-});
 
 // getProjectIssues
 // Imagine getProjectIssues working?
@@ -91,12 +55,6 @@ export const getProjectIssues = catchErrors(async (req, res) => {
   res.respond({ issues });
 });
 
-// getIssueWithUsersAndComments
-// imagine getIssueWithUsersAndComments working?
-// input
-// logic
-// output
-
 export const getIssueWithUsersAndComments = catchErrors(async (req, res) => {
   const issue = await findEntityOrThrow(Issue, req.params.issueId, {
     // https://stackoverflow.com/questions/59031198/typeorm-how-to-get-relations-of-relations
@@ -104,3 +62,30 @@ export const getIssueWithUsersAndComments = catchErrors(async (req, res) => {
   });
   res.respond({ issue });
 });
+
+export const create = catchErrors(async (req, res) => {
+  const position = await calculatePosition(req.body);
+  const issue = await createEntity(Issue, { ...req.body, position });
+  res.respond({ issue });
+});
+
+export const update = catchErrors(async (req, res) => {
+  const issue = await updateEntity(Issue, req.params.issueId, req.body);
+  res.respond({ issue });
+});
+
+export const remove = catchErrors(async (req, res) => {
+  const issue = await deleteEntity(Issue, req.params.issueId);
+  res.respond({ issue });
+});
+
+const calculatePosition = async ({ projectId, status }: Issue): Promise<number> => {
+  const issues = await Issue.find({ projectId, status });
+
+  const positions = issues.map(({ position }) => position);
+
+  if (positions.length > 0) {
+    return Math.min(...positions) - 1;
+  }
+  return 1;
+};

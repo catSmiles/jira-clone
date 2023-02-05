@@ -8,12 +8,11 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { User, Issue } from 'entities';
 import is from 'utils/validation';
+import { Issue, User } from '.';
 
 @Entity()
 class Comment extends BaseEntity {
-  // imagine way to using validation?
   static validations = {
     body: [is.required(), is.maxLength(50000)],
   };
@@ -25,10 +24,10 @@ class Comment extends BaseEntity {
   body: string;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updateAt: Date;
+  updatedAt: Date;
 
   // relation with User entity
   @ManyToOne(
